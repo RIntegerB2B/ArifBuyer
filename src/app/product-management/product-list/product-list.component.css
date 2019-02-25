@@ -1,0 +1,16 @@
+
+.buyProduct {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+    background-color: #bf0711
+}
+.displayBuyNow {
+    align-self: stretch;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    padding-left: 8px;
+    padding-right: 8px;
+    float: right
+}
