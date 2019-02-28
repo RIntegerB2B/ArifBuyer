@@ -3,17 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AppSetting } from '../config/appSetting';
 import { Product } from './../shared/product.model';
+import { PublicService } from "../shared/publicService";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  serviceUrl: string = AppSetting.serviceUrl;
+  serviceUrl: string;
   cartCount = 0;
   a: Product[] = [];
 
-  constructor(private httpClient: HttpClient) {
-
+  constructor(private httpClient: HttpClient, private publicService: PublicService) {
+    this.serviceUrl = publicService.getConfigType().serviceUrl;
   }
 
   getProducts(): Observable<any> {

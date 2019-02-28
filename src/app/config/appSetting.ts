@@ -4,6 +4,7 @@ export const AppSetting: AppSettingType = {
     local3021CrmServiceUrl: 'http://localhost:3071/',
     /* serviceUrl: environment.serviceUrl */
     // serviceUrl: 'https://rinteger.com/adminservice/'
-    serviceUrl: 'http://localhost:3071/'
+    serviceUrl: 'http://localhost:3071/',
+    clientName: 'Arif'
    /* serviceUrl: 'http://ec2-13-233-199-18.ap-south-1.compute.amazonaws.com/service/' */
 };
