@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "saif-buyer": {
+    "arif-buyer": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/saif-buyer",
+            "outputPath": "dist/arif-buyer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -54,18 +54,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "saif-buyer:build"
+            "browserTarget": "arif-buyer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "saif-buyer:build:production"
+              "browserTarget": "arif-buyer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "saif-buyer:build"
+            "browserTarget": "arif-buyer:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "saif-buyer-e2e": {
+    "arif-buyer-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "saif-buyer:serve"
+            "devServerTarget": "arif-buyer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "saif-buyer:serve:production"
+              "devServerTarget": "arif-buyer:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "saif-buyer"
+  "defaultProject": "arif-buyer"
 }

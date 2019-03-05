@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // Our index.html we'll use as our template
-const template = readFileSync(join(DIST_FOLDER, 'saif-buyer', 'index.html')).toString();
+const template = readFileSync(join(DIST_FOLDER, 'arif-buyer', 'index.html')).toString();
 
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main');
 
@@ -40,14 +40,14 @@ app.engine('html', (_, options, callback) => {
 });
 
 app.set('view engine', 'html');
-app.set('views', join(DIST_FOLDER, 'saif-buyer'));
+app.set('views', join(DIST_FOLDER, 'arif-buyer'));
 
 // Server static files from /browser
-app.get('*.*', express.static(join(DIST_FOLDER, 'saif-buyer')));
+app.get('*.*', express.static(join(DIST_FOLDER, 'arif-buyer')));
 
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
-  res.render(join(DIST_FOLDER, 'saif-buyer', 'index.html'), { req });
+  res.render(join(DIST_FOLDER, 'arif-buyer', 'index.html'), { req });
 });
 
 // Start up the Node server
