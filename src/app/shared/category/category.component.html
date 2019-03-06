@@ -21,7 +21,7 @@
         <div *ngIf="cat._id === selectedDropDown" (mouseleave)="toggleDropdownLeave(cat)">
           <div class="dropdown-menu" [ngClass]="{'show': cat._id === selectedDropDown}">
             <div *ngFor="let subcat of cat.mainCategory">
-              <a class="dropdown-item">{{subcat.mainCategoryName | titlecase}}</a>
+              <a class="dropdown-item" (click)="viewCategory(subcat._id)">{{subcat.mainCategoryName | titlecase}}</a>
             </div>
           </div>
         </div>

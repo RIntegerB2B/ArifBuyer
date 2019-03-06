@@ -55,4 +55,9 @@ export class ProductService {
   calculateLocalCartProdCounts() {
     this.cartCount = this.getLocalCartProducts().length;
   }
+  getViewCategory(id): Observable<any> {
+    const categoryUrl = 'categoryDetails/';
+    const url: string = this.serviceUrl + categoryUrl + id;
+    return this.httpClient.get<Product>(url);
+  }
 }

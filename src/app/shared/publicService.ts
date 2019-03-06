@@ -14,10 +14,10 @@ import { ConfigArif } from "../config/configArif";
     getConfigType(): ConfigType {
         switch (this.clientName) {
             case 'ArifDubai':
-            this.configType=ConfigArifDubai;
+            this.configType = ConfigArifDubai;
                 break;
             case 'Arif':
-            this.configType=ConfigArif;
+            this.configType = ConfigArif;
                 break;
             default:
                 break;

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from './../shared.service';
 import { SuperCategory } from './../model/superCategory.model';
+import { Product } from './../model/product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -11,11 +13,12 @@ export class CategoryComponent implements OnInit {
 
   navbarShow = false;
   superCategory: SuperCategory[];
+  product: Product[];
   dropdownShow = false;
   mainCategory;
   selectedDropDown: string;
   selected: any;
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService, private router: Router) { }
 
   ngOnInit() {
     this.getSuperCategory();
@@ -33,8 +36,10 @@ export class CategoryComponent implements OnInit {
     this.superCategory.forEach(element => {
       if (element._id !== cat._id) {
         cat.editing = false;
+         /* this.dropdownShow = !this.dropdownShow; */
       } else {
         cat.editing = true;
+        this.dropdownShow = !this.dropdownShow;
         this.selectedDropDown = element._id;
         this.selected = cat;
       }
@@ -45,6 +50,10 @@ export class CategoryComponent implements OnInit {
         this.dropdownShow = true;
       }
     } */
+  }
+  viewCategory(subcat)   {
+    this.selectedDropDown = '';
+    this.router.navigate(['/product/productlist', subcat]);
   }
   toggleDropdownLeave() {
     this.selectedDropDown = '';
