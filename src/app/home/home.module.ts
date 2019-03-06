@@ -7,11 +7,13 @@ import { CategoryContentComponent } from './category-content/category-content.co
 import { StripComponent } from './strip/strip.component';
 import { ProductContentComponent } from './product-content/product-content.component';
 import { AdsComponent } from './ads/ads.component';
+import { PromotionComponent } from './promotion/promotion.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, BannerComponent, CategoryContentComponent, StripComponent, ProductContentComponent, AdsComponent],
+  declarations: [HomeComponent, BannerComponent, CategoryContentComponent,
+     StripComponent, ProductContentComponent, AdsComponent, PromotionComponent],
   imports: [
     CommonModule,
     HomeRoutingModule

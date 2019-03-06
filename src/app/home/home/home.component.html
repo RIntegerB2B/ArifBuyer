@@ -1,7 +1,12 @@
 <div class="container-fluid">
   <app-banner [banner]="banner"></app-banner>
+
   <app-ads [adsData]="adsData"></app-ads>
   <!-- <app-category-content></app-category-content>
   <app-strip></app-strip> -->
-  <app-product-content></app-product-content>
+  <app-promotion [promotion]="data" 
+  *ngFor="let data of promotion; let i = index;" 
+
+  ></app-promotion>
+  <!-- <app-product-content></app-product-content> -->
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Banner } from './../banner/banner.model';
 import { HomeService } from './../home.service';
 import { Ads } from './../ads/ads.model';
+import { Promotion } from './../promotion/promotion.model';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,13 @@ import { Ads } from './../ads/ads.model';
 export class HomeComponent implements OnInit {
   banner: Banner;
   adsData: Ads;
+  promotion: Promotion;
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
     this.allBanner();
     this.allAds();
+    this.allPromotion();
   }
   allBanner() {
     this.homeService.getAllBanner().subscribe(data => {
@@ -28,6 +31,13 @@ export class HomeComponent implements OnInit {
   allAds() {
     this.homeService.getAllAds().subscribe(data => {
       this.adsData = data;
+    }, error => {
+      console.log(error);
+    });
+  }
+  allPromotion() {
+    this.homeService.getAllPromotion().subscribe(data => {
+      this.promotion = data;
     }, error => {
       console.log(error);
     });

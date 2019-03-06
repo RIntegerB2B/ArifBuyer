@@ -1,16 +1,20 @@
-<div class="container-fluid">
+<div class="container-fluid mt-5">
   <div *ngIf="productModel$ | async as id">
-  <div class="row">
-    <!-- List of Products -->
+    <div class="row">
+      <!-- List of Products -->
       <div class="col-sm-4" *ngFor="let product of productModel">
-        <div class="gridImage">
-          <img class="img-fluid" [src]="product.productImageName[0]" />
-          <!-- <div class="card-footer">
-            <div class="displayBuyNow">
-              <button type="button" (click)="addToCart(product)" class="btn btn-danger">ADD CART</button>
+        <div class="card">
+          <img class="card-img-top" [src]="product.productImageName[0]">
+          <div class="card-body">
+            <h4 class="card-title">{{ product.productName }}</h4>
+            <div *ngFor="let reg of product.region">
+              <p class="card-text"> <i class="fa fa-inr" aria-hidden="true"></i> {{ reg.regionPrice }}</p>
             </div>
           </div>
-        </div> -->
+          <div class="card-footer">
+            <button class="btn btn- float-right">Add to Cart</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

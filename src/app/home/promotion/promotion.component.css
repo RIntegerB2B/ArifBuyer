@@ -1,0 +1,7 @@
+.test {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid #e6e6e6;
+    margin: 20px 0px 20px 0px;
+    border-bottom: 1px solid #e6e6e6;
+}
