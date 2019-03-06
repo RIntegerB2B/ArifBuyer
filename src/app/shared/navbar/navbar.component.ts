@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SharedService } from './../shared.service';
+import { Header } from './../navbar/header.model';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -7,10 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   isCollapsed: boolean;
-
-  constructor() { }
+  header: Header[];
+  logoImage: string;
+  constructor(private sharedService: SharedService) { }
 
   ngOnInit() {
+    this.allHeader();
   }
+
+  allHeader() {
+    this.sharedService.getHeaderDetails().subscribe(data => {
+      this.header = data;
+      this.header.map(elememt =>        {
+          this.logoImage = elememt.logoImageName;
+        }
+      );
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
 
 }

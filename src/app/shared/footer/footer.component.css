@@ -1,3 +1,10 @@
 .footers a {color:#696969;}
 .footers p {color:#696969;}
 .footers ul {line-height:30px;}
+.footerBorder {
+    border-top: 1px solid #d2a679; 
+    padding-top: 10px;
+}
+.footers {
+    background-color: #f8f9fa!important;
+}

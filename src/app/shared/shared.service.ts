@@ -23,4 +23,10 @@ export class SharedService {
     const url: string = this.serviceUrl + categoryUrl;
     return this.httpClient.get<Footer>(url);
   }
+  getHeaderDetails(): Observable<any> {
+    const categoryUrl = 'headerDetails';
+    const url: string = this.serviceUrl + categoryUrl;
+    return this.httpClient.get<Footer>(url);
+  }
 }
+

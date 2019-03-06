@@ -1,48 +1,52 @@
 <div class="container-fluid footers pt-5">
-  <div class="row" *ngFor="let fotdata of footer">
-    <div class="col-xs-12 col-sm-6 col-md-4">
+  <div class="row footerBorder" *ngFor="let fotdata of footer">
+     
+    <div class="col-xs-12 col-sm-6 col-md-4 ">
       <div class="footers-logo">
         <img [src]="fotdata.logoImageName" alt="Logo" style="width:120px;">
       </div>
       <div class="footers-info mt-3">
         <p>{{fotdata.address}}</p>
-        <p>{{fotdata.contactNo}}</p>
-        <p>{{fotdata.alternativeContactNo}}</p>
+        <ul class="list-unstyled">
+          <li><a href="maintenance.html"><span><i class="fa fa-phone" aria-hidden="true"></i></span>{{fotdata.contactNo}}</a></li>
+          <li><a href="contact.html"><span><i class="fa fa-phone" aria-hidden="true"></i></span>{{fotdata.alternativeContactNo}}</a></li>
+          <li><a href="about.html"><span><i class="fa fa-envelope" aria-hidden="true"></i></span>{{fotdata.mailId}}</a></li>
+        </ul>
       </div>
     </div>
-    <div class="col-xs-12 col-6 col-md-2 footers-two">
-      <h5>About Us</h5>
+    <div class="col-xs-12 col-6 col-md-2">
+      <h6>About Us</h6>
       <ul class="list-unstyled">
         <li><a href="maintenance.html">About Us</a></li>
         <li><a href="contact.html">Partner with us</a></li>
         <li><a href="about.html">Terms & Conditions</a></li>
       </ul>
     </div>
-    <div class="col-xs-12 col-6 col-md-2 footers-three">
-      <h5>Information </h5>
+    <div class="col-xs-12 col-6 col-md-2">
+      <h6>Information </h6>
       <ul class="list-unstyled">
         <li><a href="maintenance.html">Order</a></li>
         <li><a href="contact.html">Delivery</a></li>
         <li><a href="about.html">Call us</a></li>
       </ul>
     </div>
-    <div class="col-xs-12 col-6 col-md-2 footers-four">
-      <h5>Explore </h5>
+    <div class="col-xs-12 col-6 col-md-2">
+      <h6>Explore </h6>
       <ul class="list-unstyled">
         <li><a href="maintenance.html">News</a></li>
         <li><a href="contact.html">Sitemap</a></li>
-        
-        <li><a href="about.html">Feedbacks</a></li>
 
+        <li><a href="about.html">Feedbacks</a></li>
       </ul>
     </div>
-    <div class="col-xs-12 col-6 col-md-2 footers-five">
-      <h5>Social Media</h5>
+    <div class="col-xs-12 col-6 col-md-2">
+      <h6>Social Media </h6>
       <ul class="list-unstyled">
         <li>
-          <a [href]="fotData.facebookLink"><i class="fa fa-facebook-square fa-3x social"></i></a>
-          <a [href]="fotData.twitterLink"><i class="fa fa-twitter-square fa-3x social"></i></a>
-          <a [href]="fotData.twitterLink"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+          <a class="pr-2" [attr.href]="fotdata?.facebookLink" target="_blank" ><i class="fa fa-facebook-square fa-2x social"></i></a>
+          <a class="pr-2" [attr.href]="fotdata?.googlePlusLink" target="_blank"><i class="fa fa-twitter-square fa-2x social"></i></a>
+          <a class="pr-2" [attr.href]="fotdata?.twitterLink" target="_blank"><i class="fa fa-google-plus-square fa-2x social"></i></a>
+          <a class="pr-2" [attr.href]="fotdata?.pintrestLink" target="_blank"><i class="fa fa-pinterest  fa-2x social"></i></a>
       </ul>
     </div>
 
