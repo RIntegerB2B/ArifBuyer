@@ -1,14 +1,26 @@
 <div class="container-fluid mt-5">
   <div *ngIf="productModel$ | async as id">
     <div class="row">
+        <nav class="nav" >
+            <a class="nav-link " >Sort By</a>
+            <div *ngFor="let data of sortBy">
+                <li class="nav-link "  
+                [class.selectedSort]="data.type === selectedSortVal" (click)="sortType(data.type)"  >{{data.value}}</li>
+            </div>
+            
+          </nav>
+
+    </div>
+    <div class="row">
       <!-- List of Products -->
+
       <div class="col-sm-4" *ngFor="let product of productModel">
         <div class="card">
-          <img class="card-img-top" [src]="product.productImageName[0]">
+          <img style="height:334px; width:334px" [src]="product.productImageName[0]">
           <div class="card-body">
             <h4 class="card-title">{{ product.productName }}</h4>
-            <div *ngFor="let reg of product.region">
-              <p class="card-text"> <i class="fa fa-inr" aria-hidden="true"></i> {{ reg.regionPrice }}</p>
+            <div >
+              <p class="card-text"> <i class="fa fa-inr" aria-hidden="true"></i> {{ product.price }}</p>
             </div>
           </div>
           <div class="card-footer">
@@ -17,5 +29,7 @@
         </div>
       </div>
     </div>
+    <mat-paginator #paginator [pageSize]="pageSize" [hidePageSize]="true" [pageSizeOptions]="[10, 100, 150]"
+      [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)"></mat-paginator>
   </div>
 </div>

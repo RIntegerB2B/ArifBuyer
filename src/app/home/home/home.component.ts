@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   allPromotion() {
     this.homeService.getAllPromotion().subscribe(data => {
       this.promotion = data;
+      console.log(data);
     }, error => {
       console.log(error);
     });

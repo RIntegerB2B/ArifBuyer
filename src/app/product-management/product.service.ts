@@ -60,4 +60,14 @@ export class ProductService {
     const url: string = this.serviceUrl + categoryUrl + id;
     return this.httpClient.get<Product>(url);
   }
+  lowPriceCategory(id): Observable<any> {
+    const categoryUrl = 'lowcategoryDetails/';
+    const url: string = this.serviceUrl + categoryUrl + id;
+    return this.httpClient.get<Product>(url);
+  }
+  highPriceCategory(id): Observable<any> {
+    const categoryUrl = 'highcategoryDetails/';
+    const url: string = this.serviceUrl + categoryUrl + id;
+    return this.httpClient.get<Product>(url);
+  }
 }
