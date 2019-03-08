@@ -70,4 +70,18 @@ export class ProductService {
     const url: string = this.serviceUrl + categoryUrl + id;
     return this.httpClient.get<Product>(url);
   }
+
+  // filter
+
+  filterByPrice(id, data): Observable<any> {
+    const categoryUrl = 'category/';
+    const url: string = this.serviceUrl + categoryUrl + id;
+    return this.httpClient.put<Product>(url, data);
+  }
+
+  filterByColor(id, data): Observable<any> {
+    const categoryUrl = 'categoryColor/';
+    const url: string = this.serviceUrl + categoryUrl + id;
+    return this.httpClient.put<Product>(url, data);
+  }
 }

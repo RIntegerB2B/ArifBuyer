@@ -4,3 +4,4 @@
 @import "./assets/styles/commonStyle.css";
 @import "./assets/styles/angularStyle.css";
 @import "./assets/styles/bootstrapOverride.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

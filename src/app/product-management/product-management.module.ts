@@ -29,16 +29,18 @@ import {
   MatPaginatorModule,
   MatTableModule,
   MatSortModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSliderModule
 } from '@angular/material';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductService } from './product.service';
+import { ProductFilterComponent } from './product-filter/product-filter.component';
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent],
+  declarations: [ProductListComponent, ProductDetailComponent, ProductFilterComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
@@ -67,6 +69,7 @@ import { ProductService } from './product.service';
     MatCheckboxModule,
     MatRadioModule,
     MatExpansionModule,
+    MatSliderModule
   ],
   providers: [ProductService]
 })

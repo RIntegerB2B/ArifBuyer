@@ -1,4 +1,69 @@
-<div class="container-fluid mt-5">
+<div class="row">
+<div class="col-md-3">
+  <div class="container-fluid mt-5">
+      <div class="row" style="margin-left: 15px;">
+          <div class="col-md-12">
+            <div class="card">
+              <p>Filters</p>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <p>Price</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <ul>
+                    <li *ngFor="let data of priceRangeValue">
+                      <mat-checkbox (change)="showPriceOptions(data)"  [checked]="data === filterPrice">{{data}}</mat-checkbox>
+                    </li>
+                  </ul>
+        
+                </div>
+              </div>
+        
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <p>Color</p>
+              <div class="row">
+                  <div class="col-md-12">
+                      <ul>
+                        <li *ngFor="let data of color">
+                          <mat-checkbox (change)="showColorOptions(data)"  [checked]="data === filterColor">{{data}}</mat-checkbox>
+                        </li>
+                      </ul>
+            
+                    </div>
+              </div>
+        
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <p>Material</p>
+              <div class="row">
+                  <div class="col-md-12">  
+                      <ul>
+                        <li *ngFor="let data of material">
+                          <mat-checkbox (change)="showMaterialOptions(data)"  [checked]="data === filterMaterial">{{data}}</mat-checkbox>
+                        </li>
+                      </ul>
+            
+                    </div>
+              </div>
+        
+            </div>
+          </div>
+        </div>
+        
+</div>
+
+</div>
+<div class="col-md-9">
+  <div class="container-fluid mt-5">
+    <mat-paginator  
+    [length]="totalSize" [hidePageSize]="true" [pageIndex]="currentPage" ></mat-paginator>
   <div *ngIf="productModel$ | async as id">
     <div class="row">
         <nav class="nav" >
@@ -22,6 +87,12 @@
             <div >
               <p class="card-text"> <i class="fa fa-inr" aria-hidden="true"></i> {{ product.price }}</p>
             </div>
+           <!--  <div >
+                <p class="card-text"> {{ product.color }}</p>
+              </div>
+              <div >
+                <p class="card-text"> {{ product.material }}</p>
+              </div> -->
           </div>
           <div class="card-footer">
             <button class="btn btn- float-right">Add to Cart</button>
@@ -29,7 +100,10 @@
         </div>
       </div>
     </div>
-    <mat-paginator #paginator [pageSize]="pageSize" [hidePageSize]="true" [pageSizeOptions]="[10, 100, 150]"
+    <mat-paginator #paginator [pageSize]="pageSize" [hidePageSize]="true"  [pageSizeOptions]="[10, 100, 150]"
       [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)"></mat-paginator>
   </div>
 </div>
+</div>
+</div>
+

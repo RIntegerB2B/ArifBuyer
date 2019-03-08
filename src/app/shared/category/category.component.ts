@@ -53,6 +53,10 @@ export class CategoryComponent implements OnInit {
   }
   viewCategory(subcat)   {
     this.selectedDropDown = '';
+    localStorage.removeItem('productSortType');
+    localStorage.removeItem('filterPrice');
+    localStorage.removeItem('filterColor');
+    localStorage.removeItem('filterMaterial');
     this.router.navigate(['/product/productlist', subcat]);
   }
   toggleDropdownLeave() {
