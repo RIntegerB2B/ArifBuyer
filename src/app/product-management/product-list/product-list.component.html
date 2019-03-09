@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                   <ul>
                     <li *ngFor="let data of priceRangeValue">
-                      <mat-checkbox (change)="showPriceOptions(data)"  [checked]="data === filterPrice">{{data}}</mat-checkbox>
+                      <mat-checkbox (change)="showPriceOptions($event)"  [value]="data">{{data}}</mat-checkbox>
                     </li>
                   </ul>
         
@@ -30,7 +30,7 @@
                   <div class="col-md-12">
                       <ul>
                         <li *ngFor="let data of color">
-                          <mat-checkbox (change)="showColorOptions(data)"  [checked]="data === filterColor">{{data}}</mat-checkbox>
+                          <mat-checkbox (change)="showColorOptions($event)" [value]="data" >{{data}}</mat-checkbox>
                         </li>
                       </ul>
             
@@ -46,7 +46,7 @@
                   <div class="col-md-12">  
                       <ul>
                         <li *ngFor="let data of material">
-                          <mat-checkbox (change)="showMaterialOptions(data)"  [checked]="data === filterMaterial">{{data}}</mat-checkbox>
+                          <mat-checkbox (change)="showMaterialOptions($event)" [value]="data"  >{{data}}</mat-checkbox>
                         </li>
                       </ul>
             
@@ -87,12 +87,12 @@
             <div >
               <p class="card-text"> <i class="fa fa-inr" aria-hidden="true"></i> {{ product.price }}</p>
             </div>
-           <!--  <div >
+            <div >
                 <p class="card-text"> {{ product.color }}</p>
               </div>
               <div >
                 <p class="card-text"> {{ product.material }}</p>
-              </div> -->
+              </div>
           </div>
           <div class="card-footer">
             <button class="btn btn- float-right">Add to Cart</button>

@@ -3,4 +3,5 @@ export class Filter {
     maximumPriceFilter: number;
     colorFilter: string;
     materialFilter: string;
+    sortType: string;
 }

@@ -6,7 +6,7 @@ import { ProductService } from './../product.service';
 import { Product } from '../../shared/model/product.model';
 import { Observable, } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {Filter} from './filter.model';
+import { Filter } from './filter.model';
 
 @Component({
   selector: 'app-product-list',
@@ -28,12 +28,12 @@ export class ProductListComponent implements OnInit {
   color = ['Black', 'Blue', 'Yellow', 'Red'];
   material = ['Polyster', 'Leather', 'Rexin'];
   sortBy = [{
-      type: 'lowtohigh',
-      value: 'Price - Low To High'
-    }, {
-      type: 'hightolow',
-      value: 'Price -  High To Low'
-    }];
+    type: 'lowtohigh',
+    value: 'Price - Low To High'
+  }, {
+    type: 'hightolow',
+    value: 'Price -  High To Low'
+  }];
   selectedSortVal;
   public array: any;
   public displayedColumns = ['', '', '', '', ''];
@@ -43,9 +43,10 @@ export class ProductListComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.filterPrice = localStorage.getItem('filterPrice');
-    this.filterColor = localStorage.getItem('filterColor');
-    this.filterMaterial = localStorage.getItem('filterMaterial');
+    localStorage.removeItem('filterMaterial');
+    localStorage.removeItem('minimumPriceFilter');
+    localStorage.removeItem('maximumPriceFilter');
+    localStorage.removeItem('filterColor');
     this.productModel$ = this.route.paramMap.pipe(
       switchMap(params => {
         this.catid = params.get('catId');
@@ -129,61 +130,277 @@ export class ProductListComponent implements OnInit {
     this.productModel = part;
   }
 
-  // filter
+  // filter by price
 
-  showPriceOptions(val) {
-    localStorage.setItem('filterPrice', val);
-    this.filterModel = new Filter();
-    const PriceVal = val;
-    const splittedVal = PriceVal.split('-');
-    console.log(typeof(splittedVal[0]));
-    this.filterModel.minimumPriceFilter = +splittedVal[0];
-    this.filterModel.maximumPriceFilter = +splittedVal[1];
- // tslint:disable-next-line:align
- this.productService.filterByPrice(this.catid, this.filterModel).subscribe(data => {
-   this.productModel = data;
-   this.productModel.paginator = this.paginator;
-   this.productModel = data;
-   this.array = data;
-   this.totalSize = this.array.length;
-   this.iterator();
-}, err => {
-  console.log(err);
-});
+  showPriceOptions(e) {
+    if (e.checked === true) {
+      const PriceVal = e.source.value;
+      const splittedVal = PriceVal.split('-');
+      localStorage.setItem('minimumPriceFilter', splittedVal[0]);
+      localStorage.setItem('maximumPriceFilter', splittedVal[1]);
+      const MaterialSelected = localStorage.getItem('filterMaterial');
+      const ColorSelected = localStorage.getItem('filterColor');
+      this.filterModel = new Filter();
+      this.filterModel.minimumPriceFilter = +splittedVal[0];
+      this.filterModel.maximumPriceFilter = +splittedVal[1];
+      this.filterModel.materialFilter = MaterialSelected;
+      this.filterModel.colorFilter = ColorSelected;
+      this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        this.productModel = data;
+        this.productModel.paginator = this.paginator;
+        this.productModel = data;
+        this.array = data;
+        this.totalSize = this.array.length;
+        this.iterator();
+      }, err => {
+        console.log(err);
+      });
+    } else if (e.checked === false) {
+      localStorage.removeItem('minimumPriceFilter');
+      localStorage.removeItem('maximumPriceFilter');
+      const MaterialSelected = localStorage.getItem('filterMaterial');
+      const ColorSelected = localStorage.getItem('filterColor');
+      if ((MaterialSelected === null || MaterialSelected === undefined) &&
+        (ColorSelected === null || ColorSelected === undefined)) {  // filter only price
+        this.viewCategory();
+      } else if ((MaterialSelected !== null || MaterialSelected !== undefined) &&
+        (ColorSelected === null || ColorSelected === undefined)) {  // filter only material
+        this.filterModel = new Filter();
+        this.filterModel.materialFilter = MaterialSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((ColorSelected !== null || ColorSelected !== undefined) &&
+        (MaterialSelected === null || MaterialSelected === undefined)) {  // filter only color
+        this.filterModel = new Filter();
+        this.filterModel.colorFilter = ColorSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((ColorSelected !== null || ColorSelected !== undefined) &&
+        (MaterialSelected !== null || MaterialSelected !== undefined)) {  // filter  color and material
+        this.filterModel = new Filter();
+        this.filterModel.colorFilter = ColorSelected;
+        this.filterModel.materialFilter = MaterialSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      }
+    }
   }
-  showColorOptions(val) {
-    localStorage.setItem('filterColor', val);
-    this.filterModel = new Filter();
-    this.filterModel.colorFilter = val;
-    this.filterModel.materialFilter = localStorage.getItem('filterMaterial');
- // tslint:disable-next-line:align
-  this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
-    this.productModel = data;
-    this.productModel.paginator = this.paginator;
-    this.productModel = data;
-    this.array = data;
-    this.totalSize = this.array.length;
-    this.iterator();
-}, err => {
-  console.log(err);
-  });
-}
-  showMaterialOptions(val) {
-    localStorage.setItem('filterMaterial', val);
-    this.filterModel = new Filter();
-    this.filterModel.colorFilter = localStorage.getItem('filterColor');
-    this.filterModel.materialFilter = val ;
- // tslint:disable-next-line:align
-  this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
-    this.productModel = data;
-    this.productModel.paginator = this.paginator;
-    this.productModel = data;
-    this.array = data;
-    this.totalSize = this.array.length;
-    this.iterator();
-}, err => {
-  console.log(err);
-  });
+  // filter By color
+  showColorOptions(e) {
+    if (e.checked === true) {
+      localStorage.setItem('filterColor', e.source.value);
+      const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
+      const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
+      this.filterModel = new Filter();
+      this.filterModel.colorFilter = e.source.value;
+      if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+      } else {
+        this.filterModel.minimumPriceFilter = undefined;
+        this.filterModel.maximumPriceFilter = undefined;
+      }
+      this.filterModel.materialFilter = localStorage.getItem('filterMaterial');
+      this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        this.productModel = data;
+        this.productModel.paginator = this.paginator;
+        this.productModel = data;
+        this.array = data;
+        this.totalSize = this.array.length;
+        this.iterator();
+      }, err => {
+        console.log(err);
+      });
+    } else if (e.checked === false) {
+      localStorage.removeItem('filterColor');
+      const MaterialSelected = localStorage.getItem('filterMaterial');
+      const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
+      const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
+      if ( (MinimumPriceSelected !== null && MinimumPriceSelected !== undefined ) &&
+      ( MaximumPriceSelected !== undefined && MaximumPriceSelected !== null) ) {
+       this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+       this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+     } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0'  ) &&
+     ( MaximumPriceSelected === undefined && MaximumPriceSelected === undefined || MaximumPriceSelected === '0')) {
+       this.filterModel.minimumPriceFilter = undefined;
+       this.filterModel.maximumPriceFilter = undefined;
+     }
+      if ((MaterialSelected === null || MaterialSelected === undefined) &&
+        (MinimumPriceSelected === null || MinimumPriceSelected === undefined) &&
+        (MaximumPriceSelected === null || MaximumPriceSelected === undefined)) { // no filter
+        this.viewCategory();
+      } else if ((MaterialSelected !== null || MaterialSelected !== undefined) &&
+        (MinimumPriceSelected !== null || MinimumPriceSelected !== undefined) &&
+        (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined)) {  // filter material and price
+        this.filterModel = new Filter();
+        this.filterModel.materialFilter = MaterialSelected;
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((MaterialSelected !== null || MaterialSelected !== undefined) &&
+        (MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0' ) &&
+        (MaximumPriceSelected === null || MaximumPriceSelected === undefined  || MaximumPriceSelected === '0')) {  // filter only material
+        this.filterModel = new Filter();
+        this.filterModel.materialFilter = MaterialSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((MinimumPriceSelected !== null || MinimumPriceSelected !== undefined) &&
+        (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined) &&
+        (MaterialSelected === null || MaterialSelected === undefined)) {  // filter only price
+        this.filterModel = new Filter();
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      }
+    }
   }
-
+  showMaterialOptions(e) {
+    if (e.checked === true) {
+      localStorage.setItem('filterMaterial', e.source.value);
+      this.filterModel = new Filter();
+      const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
+      const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
+      this.filterModel.colorFilter = localStorage.getItem('filterColor');
+      this.filterModel.materialFilter = e.source.value;
+      if ( (MinimumPriceSelected !== null && MinimumPriceSelected !== undefined ) &&
+       ( MaximumPriceSelected !== undefined && MaximumPriceSelected !== null) ) {
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined ) &&
+      (MaximumPriceSelected === null || MaximumPriceSelected === undefined )) {
+        this.filterModel.minimumPriceFilter = undefined;
+        this.filterModel.maximumPriceFilter = undefined;
+      }
+      this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        this.productModel = data;
+        this.productModel.paginator = this.paginator;
+        this.productModel = data;
+        this.array = data;
+        this.totalSize = this.array.length;
+        this.iterator();
+      }, err => {
+        console.log(err);
+      });
+    } else if (e.checked === false) {
+      localStorage.removeItem('filterMaterial');
+      const ColorSelected = localStorage.getItem('filterColor');
+      const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
+      const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
+      if ( (MinimumPriceSelected !== null && MinimumPriceSelected !== undefined ) &&
+       ( MinimumPriceSelected !== undefined && MaximumPriceSelected !== null) ) {
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined )) {
+        this.filterModel.minimumPriceFilter = undefined;
+        this.filterModel.maximumPriceFilter = undefined;
+      }
+      if ((ColorSelected === null || ColorSelected === undefined) &&
+        (MinimumPriceSelected === null || MinimumPriceSelected === undefined) &&
+        (MaximumPriceSelected === null || MaximumPriceSelected === undefined)) {  // no filter
+        this.viewCategory();
+      } else if ((ColorSelected !== null || ColorSelected !== undefined) &&
+        (MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0') &&
+        (MaximumPriceSelected === null || MaximumPriceSelected === undefined || MaximumPriceSelected === '0')) { // filter only color
+        this.filterModel = new Filter();
+        this.filterModel.colorFilter = ColorSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((MinimumPriceSelected !== null || MinimumPriceSelected !== undefined ) &&
+        (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined ) &&
+        (ColorSelected === null || ColorSelected === undefined)) { // filter only price
+        this.filterModel = new Filter();
+        if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
+          this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+          this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+        }
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((MinimumPriceSelected !== null || MinimumPriceSelected !== undefined) &&
+      (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined) &&
+      (ColorSelected !== null || ColorSelected !== undefined)) { // filter price and color
+      this.filterModel = new Filter();
+      if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+      }
+      this.filterModel.colorFilter = ColorSelected;
+      this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        this.productModel = data;
+        this.productModel.paginator = this.paginator;
+        this.productModel = data;
+        this.array = data;
+        this.totalSize = this.array.length;
+        this.iterator();
+      }, err => {
+        console.log(err);
+      });
+    }
+    }
+  }
 }
