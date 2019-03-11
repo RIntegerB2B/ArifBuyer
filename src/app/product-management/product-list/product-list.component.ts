@@ -129,7 +129,9 @@ export class ProductListComponent implements OnInit {
     const part = this.array.slice(start, end);
     this.productModel = part;
   }
-
+  viewSingleProduct(id) {
+    this.router.navigate(['/product/productview', id]);
+  }
   // filter by price
 
   showPriceOptions(e) {

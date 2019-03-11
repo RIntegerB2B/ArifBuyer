@@ -81,7 +81,7 @@
 
       <div class="col-sm-4" *ngFor="let product of productModel">
         <div class="card">
-          <img style="height:334px; width:334px" [src]="product.productImageName[0]">
+          <a (click)="viewSingleProduct(product._id)"><img style="height:334px; width:334px" [src]="product.productImageName[0]"></a>
           <div class="card-body">
             <h4 class="card-title">{{ product.productName }}</h4>
             <div >

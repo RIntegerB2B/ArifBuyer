@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {
   MatSidenavModule,
@@ -37,12 +38,14 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductService } from './product.service';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
+import { ProductDetailViewComponent } from './product-detail-view/product-detail-view.component';
 
 
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent, ProductFilterComponent],
+  declarations: [ProductListComponent, ProductDetailComponent, ProductFilterComponent, ProductDetailViewComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     ProductRoutingModule,
     HttpClientModule,
     MatCardModule,

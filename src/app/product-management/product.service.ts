@@ -84,4 +84,19 @@ export class ProductService {
     const url: string = this.serviceUrl + categoryUrl + id;
     return this.httpClient.put<Product>(url, data);
   }
+  // view single product
+
+  singleProduct(id): Observable<any> {
+    const categoryUrl = 'product/';
+    const url: string = this.serviceUrl + categoryUrl + id;
+    return this.httpClient.get<Product>(url);
+  }
+
+  getRelatedProducts(data): Observable<any> {
+    const productUrl = 'relatedproducts/';
+    const productUrl1 = '/product/';
+    const url: string = this.serviceUrl + productUrl + data.styleCode + productUrl1 + data._id;
+    return this.httpClient.get<Product>(url);
+  }
+
 }
