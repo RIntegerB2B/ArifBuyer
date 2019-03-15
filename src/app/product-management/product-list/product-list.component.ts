@@ -7,6 +7,7 @@ import { Product } from '../../shared/model/product.model';
 import { Observable, } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Filter } from './filter.model';
+import {ProductSettings} from './../../shared/model/productFilter.model';
 
 @Component({
   selector: 'app-product-list',
@@ -16,17 +17,15 @@ import { Filter } from './filter.model';
 export class ProductListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   productModel: any;
+  productSettingsModel: ProductSettings;
   productModel$: Observable<string>;
   catid: string;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
-  priceRangeValue = ['250-500', '500-1000', '1000-1500', '1500-2000'];
   filterPrice;
   filterColor;
   filterMaterial;
-  color = ['Black', 'Blue', 'Yellow', 'Red'];
-  material = ['Polyster', 'Leather', 'Rexin'];
   sortBy = [{
     type: 'lowtohigh',
     value: 'Price - Low To High'
@@ -55,12 +54,21 @@ export class ProductListComponent implements OnInit {
         return this.catid;
       })
     );
+    this.getFilterMenu();
     /* this.getProducts(); */
 
   }
   getProducts() {
     this.productService.getProducts().subscribe(data => {
       this.productModel = data;
+    }, err => {
+      console.log(err);
+    });
+  }
+  getFilterMenu() {
+    this.productService.getFilterData().subscribe(data => {
+      console.log('filter menu', data);
+      this.productSettingsModel = data;
     }, err => {
       console.log(err);
     });
@@ -148,6 +156,7 @@ export class ProductListComponent implements OnInit {
       this.filterModel.materialFilter = MaterialSelected;
       this.filterModel.colorFilter = ColorSelected;
       this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        console.log('price filter data', data);
         this.productModel = data;
         this.productModel.paginator = this.paginator;
         this.productModel = data;

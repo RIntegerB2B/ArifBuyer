@@ -12,9 +12,11 @@ export class ProductService {
   serviceUrl: string;
   cartCount = 0;
   a: Product[] = [];
+  mainServiceUrl: string;
 
   constructor(private httpClient: HttpClient, private publicService: PublicService) {
     this.serviceUrl = publicService.getConfigType().serviceUrl;
+    this.mainServiceUrl = AppSetting.mainServiceUrl;
   }
 
   getProducts(): Observable<any> {
@@ -99,4 +101,11 @@ export class ProductService {
     return this.httpClient.get<Product>(url);
   }
 
+  // read the filter menu
+
+getFilterData(): Observable<any> {
+  const filterURL = 'productSettings/';
+  const url: string = this.mainServiceUrl + filterURL;
+  return this.httpClient.get<Product>(url);
+}
 }

@@ -34,7 +34,7 @@ viewSingleProduct() {
   this.productService.singleProduct(this.id).subscribe( data => {
     console.log('single product', data);
     this.productModel = data;
-    /* if (data.styleCode === '' || data.styleCode === undefined || data.styleCode === null) {
+    if (data.styleCode === '' || data.styleCode === undefined || data.styleCode === null) {
         this.showRelatedProducts = false;
         this.productModel = data;
       } else {
@@ -42,15 +42,15 @@ viewSingleProduct() {
         this.productService.getRelatedProducts(data).subscribe(relatedProductData => {
           console.log('related products', relatedProductData);
           relatedProductData.forEach(element => {
-            if (element._id !== this.productId) {
+            if (element._id !== this.id) {
               this.relatedProducts.push(element);
             }
           });
-          this.productModel = relatedProductData.find(e => e._id === this.productId);
+          this.productModel = relatedProductData.find(e => e._id === this.id);
         }, err => {
           console.log(err);
         });
-      } */
+      }
     }, err => {
       console.log(err);
     });
