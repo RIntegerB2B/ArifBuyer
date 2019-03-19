@@ -33,6 +33,9 @@ export class ProductListComponent implements OnInit {
     type: 'hightolow',
     value: 'Price -  High To Low'
   }];
+  selectedCheckBox;
+  selectedMaterialCheckBox;
+  selectedPriceCheckBox;
   selectedSortVal;
   public array: any;
   public displayedColumns = ['', '', '', '', ''];
@@ -142,8 +145,9 @@ export class ProductListComponent implements OnInit {
   }
   // filter by price
 
-  showPriceOptions(e) {
+  showPriceOptions(e, i) {
     if (e.checked === true) {
+      this.selectedPriceCheckBox = i;
       const PriceVal = e.source.value;
       const splittedVal = PriceVal.split('-');
       localStorage.setItem('minimumPriceFilter', splittedVal[0]);
@@ -221,8 +225,9 @@ export class ProductListComponent implements OnInit {
     }
   }
   // filter By color
-  showColorOptions(e) {
+  showColorOptions(e, i) {
     if (e.checked === true) {
+      this.selectedCheckBox = i;
       localStorage.setItem('filterColor', e.source.value);
       const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
       const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
@@ -315,8 +320,9 @@ export class ProductListComponent implements OnInit {
       }
     }
   }
-  showMaterialOptions(e) {
+  showMaterialOptions(e, i) {
     if (e.checked === true) {
+      this.selectedMaterialCheckBox = i;
       localStorage.setItem('filterMaterial', e.source.value);
       this.filterModel = new Filter();
       const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');

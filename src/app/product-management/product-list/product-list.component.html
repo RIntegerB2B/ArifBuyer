@@ -13,8 +13,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <ul>
-                    <li *ngFor="let data of productSettingsModel[0].priceRange">
-                      <mat-checkbox (change)="showPriceOptions($event)"  [value]="data">{{data}}</mat-checkbox>
+                    <li *ngFor="let data of productSettingsModel[0].priceRange; let i = index;">
+                      <mat-checkbox (change)="showPriceOptions($event, i)"  [value]="data" [checked]="selectedPriceCheckBox === i">{{data}}</mat-checkbox>
                     </li>
                   </ul>
         
@@ -29,8 +29,8 @@
               <div class="row">
                   <div class="col-md-12">
                       <ul>
-                        <li *ngFor="let data of productSettingsModel[0].color">
-                          <mat-checkbox (change)="showColorOptions($event)" [value]="data" >{{data}}</mat-checkbox>
+                        <li *ngFor="let data of productSettingsModel[0].color; let i = index">
+                          <mat-checkbox (change)="showColorOptions($event, i)" [value]="data" [checked]="selectedCheckBox === i" >{{data}}</mat-checkbox>
                         </li>
                       </ul>
             
@@ -45,8 +45,8 @@
               <div class="row">
                   <div class="col-md-12">  
                       <ul>
-                        <li *ngFor="let data of productSettingsModel[0].material">
-                          <mat-checkbox (change)="showMaterialOptions($event)" [value]="data"  >{{data}}</mat-checkbox>
+                        <li *ngFor="let data of productSettingsModel[0].material; let i = index">
+                          <mat-checkbox (change)="showMaterialOptions($event, i)" [value]="data" [checked]="selectedMaterialCheckBox === i"  >{{data}}</mat-checkbox>
                         </li>
                       </ul>
             
