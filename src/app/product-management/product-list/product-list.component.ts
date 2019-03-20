@@ -85,17 +85,19 @@ export class ProductListComponent implements OnInit {
     this.selectedSortVal = val;
     localStorage.setItem('productSortType', val);
     if (val === 'lowtohigh') {
-      this.productModel.sort((a, b) => {
-        return a.price - b.price;
-      });
+      this.lowToHigh();
     } else if (val === 'hightolow') {
-      this.productModel.sort((a, b) => {
-        return b.price - a.price;
-      });
+      this.highToLow();
     }
+  }
+  highToLow() {
+    this.productModel.sort((a, b) => {
+      return b.price - a.price;
+    });
   }
   viewCategory() {
     this.productService.getViewCategory(this.catid).subscribe(data => {
+      console.log('product', data);
       const val = localStorage.getItem('productSortType');
       this.selectedSortVal = val;
       if (val === 'lowtohigh') {
@@ -109,6 +111,8 @@ export class ProductListComponent implements OnInit {
           return b.price - a.price;
         });
         this.productModel = data;
+      } else if (val === undefined || val === null) {
+        this.productModel = data;
       }
       this.productModel.paginator = this.paginator;
       this.productModel = data;
@@ -117,6 +121,12 @@ export class ProductListComponent implements OnInit {
       this.iterator();
     }, error => {
       console.log(error);
+    });
+  }
+  lowToHigh() {
+
+    this.productModel.sort((a, b) => {
+      return a.price - b.price;
     });
   }
   public handlePage(e: any) {
@@ -152,17 +162,17 @@ export class ProductListComponent implements OnInit {
       this.filterModel.colorFilter = ColorSelected;
       this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
         const val = localStorage.getItem('productSortType');
-        console.log('sorted val', val);
         if (val === 'lowtohigh') {
           data.sort((a, b) => {
             return a.price - b.price;
           });
           this.productModel = data;
-          console.log('sorted product low to high', this.productModel);
         } else if (val === 'hightolow') {
           data.sort((a, b) => {
             return b.price - a.price;
           });
+          this.productModel = data;
+        } else if (val === undefined || val === null) {
           this.productModel = data;
         }
         this.productModel = data;
@@ -197,6 +207,8 @@ export class ProductListComponent implements OnInit {
               return b.price - a.price;
             });
             this.productModel = data;
+          } else if (val === undefined || val === null) {
+            this.productModel = data;
           }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
@@ -222,6 +234,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
           this.productModel = data;
@@ -249,6 +263,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
           this.productModel = data;
@@ -291,6 +307,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
         this.productModel = data;
@@ -339,6 +357,8 @@ export class ProductListComponent implements OnInit {
               return b.price - a.price;
             });
             this.productModel = data;
+          } else if (val === undefined || val === null) {
+            this.productModel = data;
           }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
@@ -365,6 +385,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
           this.productModel = data;
@@ -393,6 +415,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
           this.productModel = data;
@@ -436,6 +460,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
         this.productModel = data;
@@ -481,6 +507,8 @@ export class ProductListComponent implements OnInit {
               return b.price - a.price;
             });
             this.productModel = data;
+          } else if (val === undefined || val === null) {
+            this.productModel = data;
           }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
@@ -510,6 +538,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
           this.productModel = data;
@@ -541,6 +571,8 @@ export class ProductListComponent implements OnInit {
             data.sort((a, b) => {
               return b.price - a.price;
             });
+            this.productModel = data;
+          } else if (val === undefined || val === null) {
             this.productModel = data;
           }
           this.productModel = data;
