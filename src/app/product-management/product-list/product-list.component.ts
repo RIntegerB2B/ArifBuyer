@@ -7,7 +7,7 @@ import { Product } from '../../shared/model/product.model';
 import { Observable, } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Filter } from './filter.model';
-import {ProductSettings} from './../../shared/model/productFilter.model';
+import { ProductSettings } from './../../shared/model/productFilter.model';
 
 @Component({
   selector: 'app-product-list',
@@ -41,6 +41,7 @@ export class ProductListComponent implements OnInit {
   public displayedColumns = ['', '', '', '', ''];
   public dataSource: any;
   filterModel: Filter;
+  resultdata: any;
   constructor(public productService: ProductService, private route: ActivatedRoute, private router: Router) {
 
   }
@@ -53,7 +54,7 @@ export class ProductListComponent implements OnInit {
       switchMap(params => {
         this.catid = params.get('catId');
         this.viewCategory();
-        this.onLoadSortType();
+        /* this.onLoadSortType(); */
         return this.catid;
       })
     );
@@ -79,46 +80,36 @@ export class ProductListComponent implements OnInit {
   addToCart(product: Product) {
     this.productService.addToCart(product);
   }
-  lowToHigh() {
-    this.productService.lowPriceCategory(this.catid).subscribe(data => {
-      this.productModel = data;
-      this.productModel.paginator = this.paginator;
-      this.productModel = data;
-      this.array = data;
-      this.totalSize = this.array.length;
-      this.iterator();
-    }, err => {
-      console.log(err);
-    });
-  }
-  onLoadSortType() {
-    const val = localStorage.getItem('productSortType');
-    this.sortType(val);
-  }
+
   sortType(val) {
     this.selectedSortVal = val;
     localStorage.setItem('productSortType', val);
     if (val === 'lowtohigh') {
-      this.lowToHigh();
+      this.productModel.sort((a, b) => {
+        return a.price - b.price;
+      });
     } else if (val === 'hightolow') {
-      this.highToLow();
+      this.productModel.sort((a, b) => {
+        return b.price - a.price;
+      });
     }
-  }
-  highToLow() {
-    this.productService.highPriceCategory(this.catid).subscribe(data => {
-      this.productModel = data;
-      this.productModel.paginator = this.paginator;
-      this.productModel = data;
-      this.array = data;
-      this.totalSize = this.array.length;
-      this.iterator();
-    }, err => {
-      console.log(err);
-    });
   }
   viewCategory() {
     this.productService.getViewCategory(this.catid).subscribe(data => {
-      this.productModel = data;
+      const val = localStorage.getItem('productSortType');
+      this.selectedSortVal = val;
+      if (val === 'lowtohigh') {
+        data.sort((a, b) => {
+          return a.price - b.price;
+        });
+        this.productModel = data;
+        console.log('sorted product low to high', this.productModel);
+      } else if (val === 'hightolow') {
+        data.sort((a, b) => {
+          return b.price - a.price;
+        });
+        this.productModel = data;
+      }
       this.productModel.paginator = this.paginator;
       this.productModel = data;
       this.array = data;
@@ -160,10 +151,22 @@ export class ProductListComponent implements OnInit {
       this.filterModel.materialFilter = MaterialSelected;
       this.filterModel.colorFilter = ColorSelected;
       this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
-        console.log('price filter data', data);
+        const val = localStorage.getItem('productSortType');
+        console.log('sorted val', val);
+        if (val === 'lowtohigh') {
+          data.sort((a, b) => {
+            return a.price - b.price;
+          });
+          this.productModel = data;
+          console.log('sorted product low to high', this.productModel);
+        } else if (val === 'hightolow') {
+          data.sort((a, b) => {
+            return b.price - a.price;
+          });
+          this.productModel = data;
+        }
         this.productModel = data;
         this.productModel.paginator = this.paginator;
-        this.productModel = data;
         this.array = data;
         this.totalSize = this.array.length;
         this.iterator();
@@ -183,6 +186,18 @@ export class ProductListComponent implements OnInit {
         this.filterModel = new Filter();
         this.filterModel.materialFilter = MaterialSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -197,6 +212,18 @@ export class ProductListComponent implements OnInit {
         this.filterModel = new Filter();
         this.filterModel.colorFilter = ColorSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -212,6 +239,18 @@ export class ProductListComponent implements OnInit {
         this.filterModel.colorFilter = ColorSelected;
         this.filterModel.materialFilter = MaterialSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -242,6 +281,18 @@ export class ProductListComponent implements OnInit {
       }
       this.filterModel.materialFilter = localStorage.getItem('filterMaterial');
       this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        const val = localStorage.getItem('productSortType');
+        if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
         this.productModel = data;
         this.productModel.paginator = this.paginator;
         this.productModel = data;
@@ -256,15 +307,15 @@ export class ProductListComponent implements OnInit {
       const MaterialSelected = localStorage.getItem('filterMaterial');
       const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
       const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
-      if ( (MinimumPriceSelected !== null && MinimumPriceSelected !== undefined ) &&
-      ( MaximumPriceSelected !== undefined && MaximumPriceSelected !== null) ) {
-       this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
-       this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
-     } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0'  ) &&
-     ( MaximumPriceSelected === undefined && MaximumPriceSelected === undefined || MaximumPriceSelected === '0')) {
-       this.filterModel.minimumPriceFilter = undefined;
-       this.filterModel.maximumPriceFilter = undefined;
-     }
+      if ((MinimumPriceSelected !== null && MinimumPriceSelected !== undefined) &&
+        (MaximumPriceSelected !== undefined && MaximumPriceSelected !== null)) {
+        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0') &&
+        (MaximumPriceSelected === undefined && MaximumPriceSelected === undefined || MaximumPriceSelected === '0')) {
+        this.filterModel.minimumPriceFilter = undefined;
+        this.filterModel.maximumPriceFilter = undefined;
+      }
       if ((MaterialSelected === null || MaterialSelected === undefined) &&
         (MinimumPriceSelected === null || MinimumPriceSelected === undefined) &&
         (MaximumPriceSelected === null || MaximumPriceSelected === undefined)) { // no filter
@@ -277,6 +328,18 @@ export class ProductListComponent implements OnInit {
         this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
         this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -287,11 +350,23 @@ export class ProductListComponent implements OnInit {
           console.log(err);
         });
       } else if ((MaterialSelected !== null || MaterialSelected !== undefined) &&
-        (MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0' ) &&
-        (MaximumPriceSelected === null || MaximumPriceSelected === undefined  || MaximumPriceSelected === '0')) {  // filter only material
+        (MinimumPriceSelected === null || MinimumPriceSelected === undefined || MinimumPriceSelected === '0') &&
+        (MaximumPriceSelected === null || MaximumPriceSelected === undefined || MaximumPriceSelected === '0')) {  // filter only material
         this.filterModel = new Filter();
         this.filterModel.materialFilter = MaterialSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -308,6 +383,18 @@ export class ProductListComponent implements OnInit {
         this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
         this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -329,16 +416,28 @@ export class ProductListComponent implements OnInit {
       const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
       this.filterModel.colorFilter = localStorage.getItem('filterColor');
       this.filterModel.materialFilter = e.source.value;
-      if ( (MinimumPriceSelected !== null && MinimumPriceSelected !== undefined ) &&
-       ( MaximumPriceSelected !== undefined && MaximumPriceSelected !== null) ) {
+      if ((MinimumPriceSelected !== null && MinimumPriceSelected !== undefined) &&
+        (MaximumPriceSelected !== undefined && MaximumPriceSelected !== null)) {
         this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
         this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
-      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined ) &&
-      (MaximumPriceSelected === null || MaximumPriceSelected === undefined )) {
+      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined) &&
+        (MaximumPriceSelected === null || MaximumPriceSelected === undefined)) {
         this.filterModel.minimumPriceFilter = undefined;
         this.filterModel.maximumPriceFilter = undefined;
       }
       this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+        const val = localStorage.getItem('productSortType');
+        if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
         this.productModel = data;
         this.productModel.paginator = this.paginator;
         this.productModel = data;
@@ -353,11 +452,11 @@ export class ProductListComponent implements OnInit {
       const ColorSelected = localStorage.getItem('filterColor');
       const MinimumPriceSelected = localStorage.getItem('minimumPriceFilter');
       const MaximumPriceSelected = localStorage.getItem('maximumPriceFilter');
-      if ( (MinimumPriceSelected !== null && MinimumPriceSelected !== undefined ) &&
-       ( MinimumPriceSelected !== undefined && MaximumPriceSelected !== null) ) {
+      if ((MinimumPriceSelected !== null && MinimumPriceSelected !== undefined) &&
+        (MinimumPriceSelected !== undefined && MaximumPriceSelected !== null)) {
         this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
         this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
-      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined )) {
+      } else if ((MinimumPriceSelected === null || MinimumPriceSelected === undefined)) {
         this.filterModel.minimumPriceFilter = undefined;
         this.filterModel.maximumPriceFilter = undefined;
       }
@@ -371,24 +470,18 @@ export class ProductListComponent implements OnInit {
         this.filterModel = new Filter();
         this.filterModel.colorFilter = ColorSelected;
         this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
-          this.productModel = data;
-          this.productModel.paginator = this.paginator;
-          this.productModel = data;
-          this.array = data;
-          this.totalSize = this.array.length;
-          this.iterator();
-        }, err => {
-          console.log(err);
-        });
-      } else if ((MinimumPriceSelected !== null || MinimumPriceSelected !== undefined ) &&
-        (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined ) &&
-        (ColorSelected === null || ColorSelected === undefined)) { // filter only price
-        this.filterModel = new Filter();
-        if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
-          this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
-          this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
-        }
-        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
           this.productModel = data;
           this.productModel.paginator = this.paginator;
           this.productModel = data;
@@ -399,25 +492,68 @@ export class ProductListComponent implements OnInit {
           console.log(err);
         });
       } else if ((MinimumPriceSelected !== null || MinimumPriceSelected !== undefined) &&
-      (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined) &&
-      (ColorSelected !== null || ColorSelected !== undefined)) { // filter price and color
-      this.filterModel = new Filter();
-      if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
-        this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
-        this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+        (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined) &&
+        (ColorSelected === null || ColorSelected === undefined)) { // filter only price
+        this.filterModel = new Filter();
+        if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
+          this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+          this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+        }
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
+      } else if ((MinimumPriceSelected !== null || MinimumPriceSelected !== undefined) &&
+        (MaximumPriceSelected !== null || MaximumPriceSelected !== undefined) &&
+        (ColorSelected !== null || ColorSelected !== undefined)) { // filter price and color
+        this.filterModel = new Filter();
+        if (MinimumPriceSelected !== null && MaximumPriceSelected !== null) {
+          this.filterModel.minimumPriceFilter = +MinimumPriceSelected;
+          this.filterModel.maximumPriceFilter = +MaximumPriceSelected;
+        }
+        this.filterModel.colorFilter = ColorSelected;
+        this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
+          const val = localStorage.getItem('productSortType');
+          if (val === 'lowtohigh') {
+            data.sort((a, b) => {
+              return a.price - b.price;
+            });
+            this.productModel = data;
+          } else if (val === 'hightolow') {
+            data.sort((a, b) => {
+              return b.price - a.price;
+            });
+            this.productModel = data;
+          }
+          this.productModel = data;
+          this.productModel.paginator = this.paginator;
+          this.productModel = data;
+          this.array = data;
+          this.totalSize = this.array.length;
+          this.iterator();
+        }, err => {
+          console.log(err);
+        });
       }
-      this.filterModel.colorFilter = ColorSelected;
-      this.productService.filterByColor(this.catid, this.filterModel).subscribe(data => {
-        this.productModel = data;
-        this.productModel.paginator = this.paginator;
-        this.productModel = data;
-        this.array = data;
-        this.totalSize = this.array.length;
-        this.iterator();
-      }, err => {
-        console.log(err);
-      });
-    }
     }
   }
+
 }

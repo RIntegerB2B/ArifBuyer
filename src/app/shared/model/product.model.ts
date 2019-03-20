@@ -5,7 +5,7 @@ export class Product {
     productName: string;
     productDescription: string;
     shortDescription: string;
-    price: string;
+    price: number;
     color: string;
     styleCode: string;
     skuCode: string;
