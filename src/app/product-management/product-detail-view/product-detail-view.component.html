@@ -1,52 +1,64 @@
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 col-12">
-          <h4 class="p-2">
-            {{productModel?.productName | titlecase}}
-          </h4>
-        </div>
-        <div class="col-md-12 col-12">
-            <h4 class="p-2">
-                <i class="fa fa-inr" aria-hidden="true"></i>  {{productModel?.price }}
-            </h4>
-          </div>
-          <div class="col-md-4 col-6" >
-              <h6 class="productHeading" *ngIf="productModel?.productDescription !== ''">
-                Description
-              </h6>
-            </div>
-            <div class="col-md-6 col-6" >
-              <label style="white-space: pre-line; line-height: 20px" *ngIf="productModel?.productDescription !== ''">
-                {{productModel?.productDescription}}
-              </label>
-            </div>
-          <div class="col-md-4 col-12">
-              <h6 class="productHeading" *ngIf="productModel?.material !== '' || productModel?.waterProof !== '' ||
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <h4 class="p-2">
+        {{productModel?.productName | titlecase}}
+      </h4>
+    </div>
+    <div class="col-md-12 col-12">
+      <h4 class="p-2">
+        <i class="fa fa-inr" aria-hidden="true"></i> {{productModel?.price }}
+      </h4>
+    </div>
+    <div class="col-md-4 col-6">
+      <h6 class="productHeading" *ngIf="productModel?.productDescription !== ''">
+        Description
+      </h6>
+    </div>
+    <div class="col-md-6 col-6">
+      <label style="white-space: pre-line; line-height: 20px" *ngIf="productModel?.productDescription !== ''">
+        {{productModel?.productDescription}}
+      </label>
+    </div>
+    <div class="col-md-4 col-12">
+      <h6 class="productHeading" *ngIf="productModel?.material !== '' || productModel?.waterProof !== '' ||
               productModel?.laptopSize !== '' ||  productModel?.closure !== '' ||  productModel?.compartments !== '' || 
                productModel?.pockets !== ''">
-                Product Details
-          </h6>
-            </div>
-            
-       
-        <div class="col-md-6 col-6">
-          <h6 *ngIf="productModel?.length !== ''"><label >Length</label>: {{productModel?.length}}</h6>
-          <h6 *ngIf="productModel?.breadth !== ''"><label>Breadth</label>: {{productModel?.breadth}}</h6>
-          <h6 *ngIf="productModel?.height !== ''"><label>Height</label>: {{productModel?.height}}</h6>
-          <h6 *ngIf="productModel?.material !== ''"><label>Material</label>: {{productModel?.material}}</h6>
-          <h6 *ngIf="productModel?.waterProof !== ''"><label>WaterProof</label>: {{productModel?.waterProof}}</h6>
-          <h6 *ngIf="productModel?.laptopSize !== ''"><label>LaptopSize</label>: {{productModel?.laptopSize}}</h6>
-          <h6 *ngIf="productModel?.closure !== ''"><label>Closure</label>: {{productModel?.closure}}</h6>
-          <h6 *ngIf="productModel?.compartments !== ''"><label>Compartments</label>: {{productModel?.compartments}}</h6>
-          <h6 *ngIf="productModel?.pockets !== ''"><label>Pockets</label>: {{productModel?.pockets}}</h6>
-        </div>
-        <div class="col-md-6 col-6">
-         
-        </div>
-       
-      </div>
+        Product Details
+      </h6>
     </div>
-      
-   
-    
+
+
+    <div class="col-md-6 col-6">
+      <h6 *ngIf="productModel?.length !== ''"><label>Length</label>: {{productModel?.length}}</h6>
+      <h6 *ngIf="productModel?.breadth !== ''"><label>Breadth</label>: {{productModel?.breadth}}</h6>
+      <h6 *ngIf="productModel?.height !== ''"><label>Height</label>: {{productModel?.height}}</h6>
+      <h6 *ngIf="productModel?.material !== ''"><label>Material</label>: {{productModel?.material}}</h6>
+      <h6 *ngIf="productModel?.waterProof !== ''"><label>WaterProof</label>: {{productModel?.waterProof}}</h6>
+      <h6 *ngIf="productModel?.laptopSize !== ''"><label>LaptopSize</label>: {{productModel?.laptopSize}}</h6>
+      <h6 *ngIf="productModel?.closure !== ''"><label>Closure</label>: {{productModel?.closure}}</h6>
+      <h6 *ngIf="productModel?.compartments !== ''"><label>Compartments</label>: {{productModel?.compartments}}</h6>
+      <h6 *ngIf="productModel?.pockets !== ''"><label>Pockets</label>: {{productModel?.pockets}}</h6>
+    </div>
+    <div class="col-md-6 col-6">
+
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-6">
+    </div>
+    <div class="col-md-3 col-6 ">
+
+      <button class="btn btn-float-right card-footer">Add to Cart</button>
+
+
+    </div>
+    <div class="col-md-3 col-6">
+
+      <button class="btn btn-float-right card-footer" (click)="buySingleProducts(productModel._id)">Buy Now</button>
+
+    </div>
+  </div>
+</div>

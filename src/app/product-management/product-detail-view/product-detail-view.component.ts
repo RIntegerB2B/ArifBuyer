@@ -16,11 +16,15 @@ export class ProductDetailViewComponent implements OnInit {
   productData: Product;
   details: boolean;
   @Input() productModel: Product;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
   }
   showDetails() {
 this.details = true;
+  }
+  buySingleProducts(id) {
+    console.log(id, 'single products');
+    this.router.navigate(['order/placeorder', id]);
   }
 }

@@ -13,6 +13,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CategoryComponent } from './shared/category/category.component';
 import { PageNotFountComponent } from './shared/page-not-fount/page-not-fount.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { OrdermanagementRoutingModule } from './order-management/ordermanagement-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [SeoService],
   bootstrap: [AppComponent]

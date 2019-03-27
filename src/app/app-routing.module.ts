@@ -24,6 +24,10 @@ const routes: Routes = [{
   loadChildren: './shared/shared.module#SharedModule'
 },
 {
+  path: 'order',
+  loadChildren: './order-management/order-management.module#OrderManagementModule'
+},
+{
   path: '',
   redirectTo: '/home',
   pathMatch: 'full'
