@@ -2,6 +2,8 @@ import {Product} from './product.model';
 
 export class Order {
    customerId: string;
-   products: [Product];
+   products: [{
+      productId: string,
+   qty: number}];
 total: number;
 }
