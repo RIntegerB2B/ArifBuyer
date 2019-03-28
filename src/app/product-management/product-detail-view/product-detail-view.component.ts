@@ -24,7 +24,6 @@ export class ProductDetailViewComponent implements OnInit {
 this.details = true;
   }
   buySingleProducts(id) {
-    console.log(id, 'single products');
     this.router.navigate(['order/placeorder', id]);
   }
 }
