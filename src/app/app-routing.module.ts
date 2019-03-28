@@ -28,6 +28,10 @@ const routes: Routes = [{
   loadChildren: './order-management/order-management.module#OrderManagementModule'
 },
 {
+  path: 'account-info',
+  loadChildren: './account-info/account-info.module#AccountInfoModule'
+},
+{
   path: '',
   redirectTo: '/home',
   pathMatch: 'full'

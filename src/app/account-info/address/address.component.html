@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+        
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" formControlName="name" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>mobileNumber</label>
+                <input type="tel" formControlName="mobileNumber" />
+              </div>
+            </div>
+          </div>
+
+<div class="row">
+  <div class="col-md-6">
+
+              <div class="form-group">
+                <div formGroupName = "address">
+                    <h3>Address</h3>
+                <label>houseno</label>
+                <input type="text" formControlName="houseno" /><br>
+
+                <label>building</label>
+                <input type="text" formControlName="building" /><br>
+
+
+                <label>street</label>
+                <input type="text" formControlName="street" /><br>
+                <label>area</label>
+                <input type="text" formControlName="area" />
+
+                <label>landmark</label>
+                <input type="text" formControlName="landmark" /><br>
+
+
+              </div>
+
+            </div>
+          </div>
+
+
+              <div class="form-group city-state">
+                <div class="city">
+                  <label>City</label>
+                  <input type="text" formControlName="city" />
+                </div>
+                <div class="state">
+                  <label>State</label>
+                  <select formControlName="state">
+                    <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
+                  </select>
+                </div>
+                <div class="form-group zip">
+                  <label>pincode</label>
+                  <input type="text" formControlName="pincode" />
+                </div>
+              </div>
+              <button type="reset" class="btn btn-success">CANCEL</button>
+              <button type="submit" class="btn btn-primary">SAVE</button>
+      
+      </div>
+    </form>
+    </div>
+
+  </div>
+</div>
