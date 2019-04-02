@@ -21,6 +21,7 @@ export class PlaceOrderComponent implements OnInit {
   moqModel;
   changingQty;
   totalValue;
+  calculatedPrice;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private orderMgmtService: OrderManagementService,
               private snackBar: MatSnackBar) { }
 
@@ -57,10 +58,12 @@ export class PlaceOrderComponent implements OnInit {
   moq() {
     this.orderMgmtService.findMOQ(this.productModel.moq).subscribe(data => {
       this.moqModel = data;
+      this.calculatedPrice = this.productModel.price * this.moqModel.moqQuantity;
     }, err => {
       console.log(err);
     });
   }
+
   placeOrder(product, qty) {
     console.log(this.orderForm.controls.qty.value);
     this.message = 'Order Placed  successfully';
@@ -68,7 +71,7 @@ export class PlaceOrderComponent implements OnInit {
     this.orderModel.productId = product.productId;
     this.orderModel.price = product.price;
     this.orderModel.qty = +qty;
-    this.orderModel.total = product.price;
+    this.orderModel.total = this.calculatedPrice;
     this.orderMgmtService.placeOrder(this.orderModel).subscribe(data => {
       this.snackBar.open(this.message, this.action, {
         duration: 3000,
@@ -79,10 +82,10 @@ export class PlaceOrderComponent implements OnInit {
   }
   reduceQty(qty, price) {
     this.changingQty = +qty - this.moqModel.moqQuantity;
- /*    this.totalValue = +price * this.changingQty; */
+    this.calculatedPrice = +price * this.changingQty;
   }
   increaseQty(qty, price) {
     this.changingQty = +qty + this.moqModel.moqQuantity;
-    /* this.totalValue = +price * this.changingQty; */
+    this.calculatedPrice = +price * this.changingQty;
   }
 }

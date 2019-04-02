@@ -123,52 +123,52 @@
             <h3>Your Order</h3>
           </div>
           <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-10 ">
               Product
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-2 ">
               Total
             </div>
 
           </div>
           <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-10 ">
               <h4>{{productModel?.productName}}</h4>
             </div>
-            <div class="col-md-6 ">
-              <h4>{{productModel?.price}}</h4>
+            <div class="col-md-2">
+              <h4>{{calculatedPrice}}</h4>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-10 ">
               SubTotal
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-2 ">
               <p>{{productModel?.price}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-10 ">
               Shipping Fee
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-2 ">
               <p>Free</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-10 ">
               Total
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-2 ">
                 <input  formControlName="productPrice" hidden [value]="productModel?.price"  #priceValue  >
               <p>{{productModel?.price}}</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
               Quantity
             </div>
-            <div class="col-md-2 input-group">
+            <div class="col-md-4 input-group">
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default btn-number" (click)="reduceQty(qtyValue.value, priceValue.value )"
                   [disabled]="moqModel.moqQuantity < 0" data-type="minus" data-field="quant[1]">
