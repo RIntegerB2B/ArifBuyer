@@ -28,7 +28,6 @@
       </h6>
     </div>
 
-
     <div class="col-md-6 col-6">
       <h6 *ngIf="productModel?.length !== ''"><label>Length</label>: {{productModel?.length}}</h6>
       <h6 *ngIf="productModel?.breadth !== ''"><label>Breadth</label>: {{productModel?.breadth}}</h6>
@@ -43,21 +42,24 @@
     <div class="col-md-6 col-6">
 
     </div>
-
-
   </div>
   <div class="row">
     <div class="col-md-2 col-6">
     </div>
     <div class="col-md-3 col-6 ">
-
-      <button class="btn btn-float-right card-footer">Add to Cart</button>
-
-
+      <div class="btns">
+        <button mat-raised-button class="btn btn-float-right card-footer"><b>Add to Cart</b>
+           <i class="fa fa-cart-plus" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
     <div class="col-md-3 col-6">
-      <button  class="btn btn-float-right card-footer" (click)="buySingleProducts(productModel._id)">Buy Now  </button>
-
+      <div class="btnss">
+        <button mat-raised-button class="btn btn-float-right card-footers"
+          (click)="buySingleProducts(productModel._id)"><b>Buy Now</b>
+          <i class="fa fa-bolt" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

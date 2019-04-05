@@ -1,0 +1,29 @@
+.btns{
+    padding-top: 50px;
+}
+
+.btnss{
+    padding-top: 50px;
+    width: 100px;
+}
+.card-footer
+{
+    width: 150px;
+    border: 0px;
+    border-radius: 20px;
+    padding: 2px;
+    color:  rgb(102, 102, 102);
+   
+}
+.card-footers
+{
+    width: 150px;
+    border: 0px;
+    border-radius: 20px;
+    padding: 2px;
+    background: rgb(148, 148, 148);
+    color: white;
+}
+i{
+    padding-left: 10px;
+}
