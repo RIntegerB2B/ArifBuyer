@@ -8,6 +8,7 @@ import { Observable, } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Filter } from './filter.model';
 import { ProductSettings } from './../../shared/model/productFilter.model';
+import { Cart } from './../../shared/model/cart.model';
 
 @Component({
   selector: 'app-product-list',
@@ -20,6 +21,8 @@ export class ProductListComponent implements OnInit {
   productSettingsModel: ProductSettings;
   productModel$: Observable<string>;
   catid: string;
+  cart: Cart;
+  cartModel: any;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
@@ -42,6 +45,7 @@ export class ProductListComponent implements OnInit {
   public dataSource: any;
   filterModel: Filter;
   resultdata: any;
+  userId: string;
   constructor(public productService: ProductService, private route: ActivatedRoute, private router: Router) {
 
   }
@@ -58,7 +62,8 @@ export class ProductListComponent implements OnInit {
         return this.catid;
       })
     );
-    this.getFilterMenu();
+    this.userId = sessionStorage.getItem('userId');
+    /* this.getFilterMenu(); */
     /* this.getProducts(); */
 
   }
@@ -76,9 +81,6 @@ export class ProductListComponent implements OnInit {
     }, err => {
       console.log(err);
     });
-  }
-  addToCart(product: Product) {
-    this.productService.addToCart(product);
   }
 
   sortType(val) {
@@ -587,5 +589,76 @@ export class ProductListComponent implements OnInit {
       }
     }
   }
+
+  addToCart(product) {
+    if (JSON.parse(sessionStorage.getItem('login'))) {
+        this.addToCartServer(this.userId, product);
+    } else {
+      this.addToCartLocal(product);
+    }
+  }
+  addToCartServer(userId, product) {
+    console.log(product.price);
+    const item = {
+      productId: product._id,
+      productName: product.productName,
+      productDescription: product.productDescription,
+      productImageName: product.productImageName[0],
+      price: product.price,
+      subTotal: product.price * 1,
+      qty: 1
+    };
+    const totalItem = [];
+    totalItem.push(item);
+    this.cart = new Cart();
+    this.cart.userId = userId;
+    this.cart.product = totalItem;
+    this.productService.addToCart(this.cart).subscribe(data => {
+      this.cartModel = data;
+      /* this.router.navigate(['product/shopping']); */
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  addToCartLocal(product) {
+    const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+      const item = {
+        productId: product._id,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productImageName: product.productImageName[0],
+        price: product.price,
+        subTotal: product.price * 1,
+        qty: 1
+      };
+      cart.push(item);
+      sessionStorage.setItem('cart', JSON.stringify(cart));
+
+    } else {
+      const item = cart.find(ite => {
+        return ite.productId === product._id;
+      });
+      if (item) { // check if is not new item
+        item.qty++;
+        item.subTotal = item.price * item.qty;
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+      } else {
+        const items = {
+          productId: product._id,
+          productName: product.productName,
+          productDescription: product.productDescription,
+          productImageName: product.productImageName[0],
+          price: product.price,
+          subTotal: product.price * 1,
+          qty: 1
+        };
+        cart.push(items);
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+      }
+    }
+  }
+
 
 }

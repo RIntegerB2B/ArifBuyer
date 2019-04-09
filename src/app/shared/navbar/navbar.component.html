@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-primary">
   <a class="navbar-brand" [routerLink]="['/home']">
     <img [src]="logoImage">
   </a>
@@ -25,5 +25,35 @@
     </ul>
   </div>
 
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand" href="#">
+    <img [src]="logoImage">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <div class="searchBox">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline- my-2 my-sm-0" type="submit"><i class="fa fa-search text-white"></i>
+          </button>
+        </form>
+      </div>
+    </ul>
+    <ul class="navbar-nav mr-auto">
+
+    </ul>
+    <ul class="navbar-nav">
+      <li><a routerLink="product/shopping" class="nav-link navText" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span
+            class="badge badge-light"></span>
+          {{this.sharedService.addToQty()}}</a></li>
+      <li class="nav-item">
+        <a class="nav-link navText" routerLink="/account/signin">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link navText" href="#">Signup</a>
+      </li>
+    </ul>
+  </div>
 </nav>
 <app-category></app-category>

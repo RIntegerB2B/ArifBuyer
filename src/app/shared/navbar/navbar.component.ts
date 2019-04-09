@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
   isCollapsed: boolean;
   header: Header[];
   logoImage: string;
-  constructor(private sharedService: SharedService) { }
+  constructor(public sharedService: SharedService) { }
 
   ngOnInit() {
     this.allHeader();

@@ -1,6 +1,6 @@
-export class regModel {
-    emailId:string;
-    mobileNumber:number;
-    password:string;
-    
+export class RegModel {
+    emailId: string;
+    mobileNumber: number;
+    password: string;
+
 }

@@ -28,7 +28,7 @@ const routes: Routes = [{
   loadChildren: './order-management/order-management.module#OrderManagementModule'
 },
 {
-  path: 'account-info',
+  path: 'account',
   loadChildren: './account-info/account-info.module#AccountInfoModule'
 },
 {

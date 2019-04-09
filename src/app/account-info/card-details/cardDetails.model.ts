@@ -1,4 +1,4 @@
-export class cardDeatailModel {
+export class CardDetailModel {
     cardName: string;
     cardNumber: number;
     expiryMonth: number;

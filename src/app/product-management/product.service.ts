@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AppSetting } from '../config/appSetting';
 import { Product } from '../shared/model/product.model';
 import { PublicService } from '../shared/public/publicService';
+import { Cart } from '../shared/model/cart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,39 +24,6 @@ export class ProductService {
     const categoryUrl = 'product';
     const url: string = this.serviceUrl + categoryUrl;
     return this.httpClient.get<Product>(url);
-  }
-  addToCart(product: Product) {
-    this.a = JSON.parse(localStorage.getItem('product')) || [];
-    this.a.push(product);
-    localStorage.setItem('product', JSON.stringify(this.a));
-    this.calculateLocalCartProdCounts();
-  }
-  removeLocalCartProduct(product: Product) {
-    const products: Product[] = JSON.parse(localStorage.getItem('product')) || [];
-
-    for (let i = 0; i < products.length; i++) {
-      if (products[i]._id === product._id) {
-        products.splice(i, 1);
-        break;
-      }
-    }
-    // ReAdding the products after remove
-    localStorage.setItem('product', JSON.stringify(products));
-
-    this.calculateLocalCartProdCounts();
-  }
-  findCart() {
-    const categoryUrl = 'findcart';
-    const url: string = this.serviceUrl + categoryUrl;
-    return this.httpClient.get<Product>(url);
-  }
-  getLocalCartProducts(): Product[] {
-    const products: Product[] =
-      JSON.parse(localStorage.getItem('product'));
-    return products;
-  }
-  calculateLocalCartProdCounts() {
-    this.cartCount = this.getLocalCartProducts().length;
   }
   getViewCategory(id): Observable<any> {
     const categoryUrl = 'categoryDetails/';
@@ -107,5 +75,38 @@ getFilterData(): Observable<any> {
   const filterURL = 'productSettings/';
   const url: string = this.mainServiceUrl + filterURL;
   return this.httpClient.get<Product>(url);
+}
+addToCart(cart): Observable<Cart>  {
+  const cartUrl = 'cart/';
+  const url: string = this.serviceUrl + cartUrl;
+  return this.httpClient.post<Cart>(url, cart);
+}
+addToCartTest(prod) {
+  const categoryUrl = 'cart';
+  const url: string = this.serviceUrl + categoryUrl;
+  return this.httpClient.post<Product>(url, prod);
+}
+deleteToCart(userid, proId) {
+  const cartUrl = 'cart/';
+  const productUrl = '/deleteproduct/';
+  const url: string = this.serviceUrl + cartUrl + userid + productUrl + proId._id;
+  return this.httpClient.delete<Cart>(url);
+}
+shoppingUser(userId) {
+  const shoppingUrl = 'cart/';
+  const url: string = this.serviceUrl + shoppingUrl + userId;
+  return this.httpClient.get<Cart>(url);
+}
+shoppingCart() {
+  const shoppingUrl = 'shopping/';
+  const url: string = this.serviceUrl + shoppingUrl;
+  return this.httpClient.get<Product>(url);
+}
+
+addToCartMinus(cart)   {
+  const cartUrl = 'cart/';
+  const productUrl = '/decproduct/';
+  const url: string = this.serviceUrl + cartUrl + cart.userId + productUrl + cart.product.productId;
+  return this.httpClient.put<Product>(url, cart);
 }
 }

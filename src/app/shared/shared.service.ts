@@ -28,5 +28,18 @@ export class SharedService {
     const url: string = this.serviceUrl + categoryUrl;
     return this.httpClient.get<Footer>(url);
   }
+  addToQty() {
+    let sum = 0;
+    if (JSON.parse(sessionStorage.getItem('login'))) {
+
+    } else {
+      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      cart.map(item => {
+        sum += item.qty;
+      });
+      return sum;
+    }
+
+  }
 }
 

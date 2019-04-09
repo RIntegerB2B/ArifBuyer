@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3" >
+  <!-- <div class="col-md-3" >
     <div class="container-fluid mt-5">
       <div class="row" style="margin-left: 5px;">
         <div class="col-md-12">
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -67,7 +67,7 @@
     <div class="container-fluid mt-5">
       <mat-paginator [length]="totalSize" [hidePageSize]="true" [pageIndex]="currentPage"></mat-paginator>
       <div *ngIf="productModel$ | async as id">
-        <div class="row">
+        <!-- <div class="row">
           <nav class="nav">
             <a class="nav-link "><b>Sort By</b></a>
             <div *ngFor="let data of sortBy">
@@ -75,7 +75,7 @@
                 <b> {{data.value}}</b></li>
             </div>
           </nav>
-        </div>
+        </div> -->
         <div class="row">
           <!-- List of Products -->
           <div class="col-sm-4" *ngFor="let product of productModel">
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-md-7" style="padding-top: 6px; padding-left: 20px;">
                         <div class="icon-fab" >
-                            <button mat-raised-button  class="btnn">
+                            <button mat-raised-button  class="btnn" (click)="addToCart(product)">
                            Add to Cart <i class="fa fa-cart-plus fa-1x" aria-hidden="true"></i> </button>
                           </div>
                     </div>

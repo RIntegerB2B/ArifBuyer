@@ -39,10 +39,11 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ProductService } from './product.service';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
 import { ProductDetailViewComponent } from './product-detail-view/product-detail-view.component';
-
+import {ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent, ProductFilterComponent, ProductDetailViewComponent],
+  declarations: [ProductListComponent, ProductDetailComponent, ProductFilterComponent, ProductDetailViewComponent, 
+    ShoppingCartComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
