@@ -9,6 +9,8 @@ import { switchMap } from 'rxjs/operators';
 import { Filter } from './filter.model';
 import { ProductSettings } from './../../shared/model/productFilter.model';
 import { Cart } from './../../shared/model/cart.model';
+import {MOQ} from '../../shared/model/moq.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-product-list',
@@ -17,6 +19,9 @@ import { Cart } from './../../shared/model/cart.model';
 })
 export class ProductListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  message;
+  action;
+  moqModel: MOQ;
   productModel: any;
   productSettingsModel: ProductSettings;
   productModel$: Observable<string>;
@@ -46,7 +51,7 @@ export class ProductListComponent implements OnInit {
   filterModel: Filter;
   resultdata: any;
   userId: string;
-  constructor(public productService: ProductService, private route: ActivatedRoute, private router: Router) {
+  constructor(public productService: ProductService, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {
 
   }
   ngOnInit() {
@@ -63,7 +68,7 @@ export class ProductListComponent implements OnInit {
       })
     );
     this.userId = sessionStorage.getItem('userId');
-    /* this.getFilterMenu(); */
+    this.getFilterMenu();
     /* this.getProducts(); */
 
   }
@@ -598,15 +603,17 @@ export class ProductListComponent implements OnInit {
     }
   }
   addToCartServer(userId, product) {
+    this.message = 'Product Added To Cart';
     console.log(product.price);
     const item = {
       productId: product._id,
       productName: product.productName,
       productDescription: product.productDescription,
       productImageName: product.productImageName[0],
-      price: product.price,
-      subTotal: product.price * 1,
-      qty: 1
+     price: product.price,
+     /*   subTotal: product.price * 1, */
+      set: 1,
+      moq: product.moq
     };
     const totalItem = [];
     totalItem.push(item);
@@ -615,6 +622,9 @@ export class ProductListComponent implements OnInit {
     this.cart.product = totalItem;
     this.productService.addToCart(this.cart).subscribe(data => {
       this.cartModel = data;
+      this.snackBar.open(this.message, this.action, {
+        duration: 3000,
+      });
       /* this.router.navigate(['product/shopping']); */
     }, error => {
       console.log(error);
@@ -622,6 +632,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCartLocal(product) {
+    this.message = 'Product Added To Cart';
     const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     if (cart.length === 0) {
       const item = {
@@ -629,13 +640,16 @@ export class ProductListComponent implements OnInit {
         productName: product.productName,
         productDescription: product.productDescription,
         productImageName: product.productImageName[0],
-        price: product.price,
-        subTotal: product.price * 1,
-        qty: 1
+    price: product.price,
+       /*      subTotal: product.price * 1, */
+        set: 1,
+        moq: product.moq
       };
       cart.push(item);
       sessionStorage.setItem('cart', JSON.stringify(cart));
-
+      this.snackBar.open(this.message, this.action, {
+        duration: 3000,
+      });
     } else {
       const item = cart.find(ite => {
         return ite.productId === product._id;
@@ -644,18 +658,25 @@ export class ProductListComponent implements OnInit {
         item.qty++;
         item.subTotal = item.price * item.qty;
         sessionStorage.setItem('cart', JSON.stringify(cart));
+        this.snackBar.open(this.message, this.action, {
+          duration: 3000,
+        });
       } else {
         const items = {
           productId: product._id,
           productName: product.productName,
           productDescription: product.productDescription,
           productImageName: product.productImageName[0],
-          price: product.price,
-          subTotal: product.price * 1,
-          qty: 1
+       price: product.price,
+         /*     subTotal: product.price * 1, */
+          set: 1,
+          moq: product.moq
         };
         cart.push(items);
         sessionStorage.setItem('cart', JSON.stringify(cart));
+        this.snackBar.open(this.message, this.action, {
+          duration: 3000,
+        });
       }
     }
   }

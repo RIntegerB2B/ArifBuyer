@@ -3,7 +3,7 @@ import {  RouterModule, Routes } from '@angular/router';
 import {PlaceOrderComponent} from './place-order/place-order.component';
 const routes: Routes = [
   {
-    path: 'placeorder/:id',
+    path: 'placeorder',
     component: PlaceOrderComponent
   }
 ];

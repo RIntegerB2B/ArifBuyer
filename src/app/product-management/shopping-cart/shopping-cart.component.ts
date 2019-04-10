@@ -3,6 +3,8 @@ import { ProductService } from './../product.service';
 import { Product } from '../../shared/model/product.model';
 import { Cart } from './../../shared/model/cart.model';
 import { initNgModule } from '@angular/core/src/view/ng_module';
+import {MOQ} from '../../shared/model/moq.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +16,8 @@ export class ShoppingCartComponent implements OnInit {
   shopModel: any = [];
   cart: Cart;
   userId;
-  constructor(private productService: ProductService) { }
+  moqModel: MOQ;
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
     if (JSON.parse(sessionStorage.getItem('login'))) {
@@ -31,8 +34,8 @@ export class ShoppingCartComponent implements OnInit {
           this.addToCartServer(this.userId, item);
           break;
         case 'min':
-          item.qty--;
-          if (item.qty === 0) {
+          item.set--;
+          if (item.set === 0) {
             this.removeCart(this.userId, item);
           } else {
             this.minusCart(this.userId, item);
@@ -47,15 +50,15 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       switch (event) {
         case 'add':
-          item.qty++;
-          item.subTotal = item.price * item.qty;
+          item.set++;
+          item.subTotal = item.price * item.set;
           sessionStorage.setItem('cart', JSON.stringify(this.shopModel));
           break;
         case 'min':
-          item.qty--;
-          item.subTotal = item.price * item.qty;
+          item.set--;
+          item.subTotal = item.price * item.set;
           sessionStorage.setItem('cart', JSON.stringify(this.shopModel));
-          if (item.qty === 0) {
+          if (item.set === 0) {
             this.clearFromCart(item);
           }
           break;
@@ -73,14 +76,17 @@ export class ShoppingCartComponent implements OnInit {
       productName: product.productName,
       productDescription: product.productDescription,
       productImageName: product.productImageName,
-      price: product.price,
-      subTotal: product.price * 1,
-      qty: 1
+       price: product.price,
+     /* subTotal: product.price * 1, */
+      set: 1
     };
+    const totalItem = [];
+    totalItem.push(item);
     this.cart = new Cart();
     this.cart.userId = userId;
-    this.cart.product = item;
+    this.cart.product = totalItem;
     this.productService.addToCart(this.cart).subscribe(data => {
+      console.log('incremented count', data);
       this.shopModel = data;
     }, error => {
       console.log(error);
@@ -99,25 +105,25 @@ export class ShoppingCartComponent implements OnInit {
 
     if (JSON.parse(sessionStorage.getItem('login'))) {
       this.shopModel.map(item => {
-        sum += item.qty * item.price;
+        sum += item.set * item.moq * item.price;
       });
       this.totalQty();
       return sum;
     } else {
       const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
       cart.map(item => {
-        sum += item.qty * item.price;
+        sum += item.set * item.moq * item.price;
       });
       return sum;
     }
   }
   totalQty() {
-    let qty = 0;
+    let set = 0;
     this.shopModel.map(item => {
-      qty += item.qty;
+      set += item.set;
     });
-    JSON.parse(sessionStorage.getItem('qty'));
-    return qty;
+    JSON.parse(sessionStorage.getItem('set'));
+    return set;
   }
   shoppingCartUser(userId) {
     this.productService.shoppingUser(userId).subscribe(data => {
@@ -136,7 +142,7 @@ export class ShoppingCartComponent implements OnInit {
       productImageName: product.productImageName,
       price: product.price,
       subTotal: product.price * 1,
-      qty: 1
+      set: 1
     };
     this.cart = new Cart();
     this.cart.userId = userId;
@@ -161,5 +167,8 @@ export class ShoppingCartComponent implements OnInit {
     }, err => {
       console.log(err);
     });
+  }
+  placeOrder() {
+    this.router.navigate(['order/placeorder']);
   }
 }

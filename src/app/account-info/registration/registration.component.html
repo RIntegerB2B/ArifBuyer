@@ -1,11 +1,12 @@
-<form [formGroup]="regForm" (ngSubmit)="onSubmit()" novalidate style="padding-top:60px">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 mx-auto">
 
+  <div class="container-fluid">
+    
+    <div class="row">
+      <div class="col-md-10">
+          <form [formGroup]="regForm" (ngSubmit)="onSubmit()" novalidate style="padding-top:60px">
         <div>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="email" maxlength="20" formControlName="emailId" [required]="false">
+            <input matInput placeholder="email"  formControlName="emailId" [required]="false">
             <button mat-button matSuffix mat-icon-button aria-label="email">
               <mat-icon>location_on</mat-icon>
             </button>
@@ -44,7 +45,8 @@
         </div>
         <button mat-raised-button color="secondary" type="reset">Reset</button>
         <button mat-raised-button color="primary" type="submit">Register</button>
+      </form>
       </div>
     </div>
+
   </div>
-</form>

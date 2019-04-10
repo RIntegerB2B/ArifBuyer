@@ -5,6 +5,8 @@ import { OrderManagementService } from '../order-management.service';
 import { Product } from '../../shared/model/product.model';
 import {SingleProductOrder} from '../../shared/model/singleProductOrder.model';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-place-order',
@@ -22,13 +24,17 @@ export class PlaceOrderComponent implements OnInit {
   changingQty;
   totalValue;
   calculatedPrice;
+  loginStatus;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private orderMgmtService: OrderManagementService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
-    this.id = this.route.snapshot.params.id;
-    this.viewSingleProduct();
+    /* this.viewSingleProduct(); */
+    this.loginStatus = sessionStorage.getItem('login');
+    if (this.loginStatus !== 'true') {
+      this.router.navigate(['account/signin']);
+    }
   }
   createForm() {
     this.orderForm = this.fb.group({
@@ -50,15 +56,6 @@ export class PlaceOrderComponent implements OnInit {
   viewSingleProduct() {
     this.orderMgmtService.singleProduct(this.id).subscribe(data => {
       this.productModel = data;
-      this.moq();
-    }, err => {
-      console.log(err);
-    });
-  }
-  moq() {
-    this.orderMgmtService.findMOQ(this.productModel.moq).subscribe(data => {
-      this.moqModel = data;
-      this.calculatedPrice = this.productModel.price * this.moqModel.moqQuantity;
     }, err => {
       console.log(err);
     });

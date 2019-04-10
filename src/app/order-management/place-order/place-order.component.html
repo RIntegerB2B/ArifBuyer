@@ -175,7 +175,7 @@
                   <span><i class="fa fa-minus" aria-hidden="true"></i></span>
                 </button>
               </span>
-              <input  formControlName="qty" [disabled]="true"  class="form-control input-number" [value]="moqModel.moqQuantity" [(ngModel)]="changingQty" #qtyValue>
+              <input  formControlName="qty" [disabled]="true"  class="form-control input-number" [value]="productModel.moq" [(ngModel)]="changingQty" #qtyValue>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"
                   (click)="increaseQty(qtyValue.value, priceValue.value)">

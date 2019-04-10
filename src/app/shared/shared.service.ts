@@ -35,7 +35,7 @@ export class SharedService {
     } else {
       const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
       cart.map(item => {
-        sum += item.qty;
+        sum += item.set;
       });
       return sum;
     }

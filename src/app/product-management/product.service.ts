@@ -19,7 +19,13 @@ export class ProductService {
     this.serviceUrl = publicService.getConfigType().serviceUrl;
     this.mainServiceUrl = AppSetting.mainServiceUrl;
   }
+// moq
 
+findAllMOQ(): Observable<any> {
+  const categoryUrl = 'moqs';
+  const url: string = this.mainServiceUrl + categoryUrl;
+  return this.httpClient.get<Product>(url);
+}
   getProducts(): Observable<any> {
     const categoryUrl = 'product';
     const url: string = this.serviceUrl + categoryUrl;
