@@ -169,6 +169,6 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
   placeOrder() {
-    this.router.navigate(['order/placeorder']);
+    this.router.navigate(['product/placeorder']);
   }
 }

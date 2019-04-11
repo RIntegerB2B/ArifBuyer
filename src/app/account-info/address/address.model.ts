@@ -1,9 +1,11 @@
-import {addressFields} from './addressFields.model';
-export class addressModel {
-    name: string;
-    mobileNumber: number;
-    pincode: number;
+export class AddressModel {
+    streetAddress: string;
+    building: number;
+    landmark: number;
     city: string;
-    state: [string];
-    address: [addressFields];
+    state: string;
+    pincode: string;
+    name: string;
+    mobileNumber: string;
 }
+

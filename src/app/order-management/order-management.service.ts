@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AppSetting } from '../config/appSetting';
 import { Product } from '../shared/model/product.model';
 import {SingleProductOrder} from '../shared/model/singleProductOrder.model';
+import {AddressModel} from '../account-info/address/address.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,24 @@ export class OrderManagementService {
   constructor(private httpClient: HttpClient) { }
 
 
-  singleProduct(id): Observable<any> {
-    const categoryUrl = 'product/';
-    const url: string = this.serviceUrl + categoryUrl + id;
-    return this.httpClient.get<Product>(url);
-  }
 
   placeOrder(data: SingleProductOrder): Observable<any> {
     const categoryUrl = 'orderproduct/';
     const url: string = this.serviceUrl + categoryUrl ;
     return this.httpClient.post<SingleProductOrder>(url, data);
   }
-  findMOQ(id): Observable<any> {
-    const categoryUrl = 'moq/';
-    const url: string = this.mainServiceUrl + categoryUrl + id;
-    return this.httpClient.get<Product>(url);
-  }
+ 
+// customer Details
+getCustomerDetails(id): Observable<any> {
+  const filterURL = 'customerDetail/' + id;
+  const url: string = this.serviceUrl + filterURL;
+  return this.httpClient.get<Product>(url);
+}
+
+// add new addres details
+getaddressDetails(addressHolder, id): Observable<AddressModel> {
+  const urladdress = this.serviceUrl + 'addressupdate/' + id;
+  return this.httpClient.put<AddressModel>(urladdress, addressHolder);
+}
 
 }

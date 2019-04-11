@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit {
   createForm() {
     this.userId = sessionStorage.getItem('userId');
     this.signInForm = this.fb.group({
-      userName: ['', Validators.required],
+      mobileNumber: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -38,7 +38,7 @@ export class SigninComponent implements OnInit {
 onSubmit() {
   this.submitted = true;
   this.signInModel = new SignIn();
-  this.signInModel.userName = this.signInForm.controls.userName.value;
+  this.signInModel.mobileNumber = this.signInForm.controls.mobileNumber.value;
   this.signInModel.password = this.signInForm.controls.password.value;
   this.accountService.signIn(this.signInModel).subscribe(data => {
     if (!data) {
@@ -49,7 +49,7 @@ onSubmit() {
     } else {
       /* this.setCookie(data[0]._id); */
       sessionStorage.setItem('login', 'true');
-      sessionStorage.setItem('userId', data._id);
+      sessionStorage.setItem('userId', data.customerId);
       this.router.navigate(['product/shopping']);
       this.logInUserData();
     }

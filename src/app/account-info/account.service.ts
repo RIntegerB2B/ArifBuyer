@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegModel } from './registration/registration.model';
 import { CardDetailModel } from './card-details/cardDetails.model';
-import { addressModel } from './address/address.model';
+import { AddressModel } from './address/address.model';
 import { profileModel } from './profile/profile.model';
 import { SignIn } from './signin/signIn.model';
 import { AppSetting } from './../config/appSetting';
@@ -26,9 +26,9 @@ export class AccountService {
     const urlcard = this.serviceUrl + 'cardupdate/' /* cardHolder._id */;
     return this.http.put<CardDetailModel>(urlcard, cardHolder);
   }
-  getaddressDetails(addressHolder): Observable<addressModel> {
-    const urladdress = this.serviceUrl + 'addressupdate/' /* addressHolder._id */;
-    return this.http.put<addressModel>(urladdress, addressHolder);
+  getaddressDetails(addressHolder, id): Observable<AddressModel> {
+    const urladdress = this.serviceUrl + 'addressupdate/' + id;
+    return this.http.put<AddressModel>(urladdress, addressHolder);
   }
 
 

@@ -3,7 +3,7 @@ import { FormArray, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { OrderManagementService } from '../order-management.service';
+import { ProductService } from '../product.service';
 import { Product } from '../../shared/model/product.model';
 import {SingleProductOrder} from '../../shared/model/singleProductOrder.model';
 import {AddressModel} from '../../account-info/address/address.model';
@@ -31,7 +31,7 @@ export class PlaceOrderComponent implements OnInit {
   billingDetails: any;
   addAddressDetails: boolean;
   addressHolder: AddressModel;
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private orderMgmtService: OrderManagementService,
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private productService: ProductService,
               private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
@@ -71,7 +71,7 @@ export class PlaceOrderComponent implements OnInit {
     });
   } */
 getCustomerDetails() {
-  this.orderMgmtService.getCustomerDetails(this.userID).subscribe(data => {
+  this.productService.getCustomerDetails(this.userID).subscribe(data => {
     this.billingDetails = data.addressDetails;
     console.log( data.addressDetails);
     if ( data.addressDetails === undefined) {
@@ -94,7 +94,7 @@ onSubmit() {
   this.addressHolder.pincode = this.orderForm.controls.pincode.value;
   this.addressHolder.name = this.orderForm.controls.firstName.value;
   this.addressHolder.mobileNumber = this.orderForm.controls.phoneNumber.value;
-  this.orderMgmtService.getaddressDetails(this.addressHolder, this.userID).subscribe(data => {
+  this.productService.getaddressDetails(this.addressHolder, this.userID).subscribe(data => {
     this.addressHolder = data;
   }, error => {
     console.log(error);
@@ -104,21 +104,21 @@ onSubmit() {
 
 
 }
-  placeOrder(product, qty) {
+ /*  placeOrder(product, qty) {
     this.message = 'Order Placed  successfully';
     this.orderModel = new SingleProductOrder();
     this.orderModel.productId = product.productId;
     this.orderModel.price = product.price;
     this.orderModel.qty = +qty;
     this.orderModel.total = this.calculatedPrice;
-    this.orderMgmtService.placeOrder(this.orderModel).subscribe(data => {
+    this.productService.placeOrder(this.orderModel).subscribe(data => {
       this.snackBar.open(this.message, this.action, {
         duration: 3000,
       });
   }, err => {
     console.log(err);
   });
-  }
+  } */
   reduceQty(qty, price) {
     this.changingQty = +qty - this.moqModel.moqQuantity;
     this.calculatedPrice = +price * this.changingQty;
