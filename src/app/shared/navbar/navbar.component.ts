@@ -10,10 +10,15 @@ export class NavbarComponent implements OnInit {
   isCollapsed: boolean;
   header: Header[];
   logoImage: string;
+  dropdownShow = false;
   constructor(public sharedService: SharedService) { }
 
   ngOnInit() {
     this.allHeader();
+  }
+
+  navBarShow()   {
+    this.dropdownShow = !this.dropdownShow;
   }
 
   allHeader() {

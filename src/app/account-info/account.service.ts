@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RegModel } from './registration/registration.model';
 import { CardDetailModel } from './card-details/cardDetails.model';
 import { AddressModel } from './address/address.model';
-import { profileModel } from './profile/profile.model';
+import { ProfileModel } from './profile/profile.model';
 import { SignIn } from './signin/signIn.model';
 import { AppSetting } from './../config/appSetting';
 import { Observable, from } from 'rxjs';
@@ -22,19 +22,19 @@ export class AccountService {
     return this.http.post<RegModel>(urlway, holder);
   }
 
-  getcardDetails(cardHolder): Observable<CardDetailModel> {
-    const urlcard = this.serviceUrl + 'cardupdate/' /* cardHolder._id */;
+  getcardDetails(cardHolder, userId): Observable<CardDetailModel> {
+    const urlcard = this.serviceUrl + 'cardupdate/' + userId;
     return this.http.put<CardDetailModel>(urlcard, cardHolder);
   }
-  getaddressDetails(addressHolder, id): Observable<AddressModel> {
-    const urladdress = this.serviceUrl + 'addressupdate/' + id;
+  getaddressDetails(addressHolder, userId): Observable<AddressModel> {
+    const urladdress = this.serviceUrl + 'addressupdate/' + userId;
     return this.http.put<AddressModel>(urladdress, addressHolder);
   }
 
 
-  getprofileDetails(profileHolder): Observable<profileModel> {
-    const urlprofile = this.serviceUrl + 'profileupdate/' /* profileHolder._id */;
-    return this.http.put<profileModel>(urlprofile, profileHolder);
+  getprofileDetails(profileHolder, userId): Observable<ProfileModel> {
+    const urlprofile = this.serviceUrl + 'profileupdate/' + userId;
+    return this.http.put<ProfileModel>(urlprofile, profileHolder);
   }
 
 

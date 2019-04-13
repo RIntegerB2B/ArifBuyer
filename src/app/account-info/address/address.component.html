@@ -1,70 +1,5 @@
-<!-- <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-        
-        
-
-<div class="row">
-  <div class="col-md-6">
-
-              <div class="form-group">
-                <div formGroupName = "address">
-                    <h3>Address</h3>
-                <label>houseno</label>
-                <input type="text" formControlName="houseno" /><br>
-
-                <label>building</label>
-                <input type="text" formControlName="building" /><br>
-
-
-                <label>street</label>
-                <input type="text" formControlName="street" /><br>
-                <label>area</label>
-                <input type="text" formControlName="area" /> <br>
-
-                <label>landmark</label>
-                <input type="text" formControlName="landmark" /><br>
-
-
-              </div>
-
-            </div>
-          </div>
-
-<div class="col-md-6">
-  <div class="form-group city-state">
-    <div class="city">
-      <label>City</label>
-      <input type="text" formControlName="city" />
-    </div>
-    <div class="state">
-      <label>State</label>
-      <select formControlName="state">
-        <option *ngFor="let state of states" [ngValue]="state">{{state}}</option>
-      </select>
-    </div>
-    <div class="form-group zip">
-      <label>pincode</label>
-      <input type="text" formControlName="pincode" />
-    </div>
-  </div>
-</div>
-              
-              <button type="reset" class="btn btn-success">CANCEL</button>
-              <button type="submit" class="btn btn-primary">SAVE</button>
-      
-      </div>
-    </form>
-    </div>
-
-  </div>
-</div> -->
-
-<div class="pageBoxLgs">
   <form [formGroup]="addressForm" novalidate style="padding-top:60px" (ngSubmit)="onSubmit()">
-    <div class="container-fluid ">
-      <div class="row pageBoxLg">
+    
 
         <div class="form-group col-md-5 col-sm-12 ">
           <div>
@@ -158,13 +93,7 @@
               </mat-error>
             </mat-form-field>
           </div>
-        </div>
-        
-      </div>
-      <button type="reset" class="btn btn-success">CANCEL</button>
-      <button type="submit" class="btn btn-primary">SAVE</button>
-
+      <button  class="registerButton" mat-raised-button color="primary" type="submit">Save</button>
     </div>
-
   </form>
-</div>
+

@@ -6,6 +6,7 @@ import { Product } from '../shared/model/product.model';
 import { PublicService } from '../shared/public/publicService';
 import { Cart } from '../shared/model/cart.model';
 import {AddressModel} from '../account-info/address/address.model';
+import {Order} from '../shared/model/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -134,6 +135,14 @@ return this.httpClient.get<Product>(url);
 getaddressDetails(addressHolder, id): Observable<AddressModel> {
 const urladdress = this.serviceUrl + 'addressupdate/' + id;
 return this.httpClient.put<AddressModel>(urladdress, addressHolder);
+}
+
+// place the order
+
+placeOrder(orderdetails: Order): Observable<Order>  {
+  const cartUrl = 'orders/';
+  const url: string = this.serviceUrl + cartUrl;
+  return this.httpClient.post<Order>(url, orderdetails);
 }
 
 }

@@ -1,0 +1,11 @@
+.megaMenu {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 2px 7.28px 0.72px rgba(0,0,0,.2);
+}
+@media(max-width: 500px){
+    .megaMenu{
+        width: 300px;
+    }
+}

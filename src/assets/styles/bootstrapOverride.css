@@ -76,10 +76,19 @@
 }
 
 .bg-primary {
-  background-color: #d2a679 !important;
+  background-color: #FFFFFF !important;
   color: #ffff;
 }
 
+.bg-primary {
+  color: #FFFFFF;
+  top: 0px;
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  z-index: 9;
+  background: #FFFFFF;
+}
 .navbar-light .navbar-nav .navText {
-  color: #ffff;
+  color: black;
 }

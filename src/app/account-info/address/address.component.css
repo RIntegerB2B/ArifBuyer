@@ -28,3 +28,22 @@
   .underline {
     border-bottom: 1px solid gray;
   }
+  .pizza-selected {
+    padding: 0 30px 30px;
+    border-bottom: 1px solid #b8c8d0;
+  }
+
+  .buttonClass {
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+    background: #d73a49;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 11px;
+    right: 10px;
+  }

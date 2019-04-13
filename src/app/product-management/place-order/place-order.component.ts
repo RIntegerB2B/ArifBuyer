@@ -7,6 +7,7 @@ import { ProductService } from '../product.service';
 import { Product } from '../../shared/model/product.model';
 import {SingleProductOrder} from '../../shared/model/singleProductOrder.model';
 import {AddressModel} from '../../account-info/address/address.model';
+import {Order} from '../../shared/model/order.model';
 
 
 
@@ -19,7 +20,7 @@ export class PlaceOrderComponent implements OnInit {
   orderForm: FormGroup;
   id;
   productModel: Product;
-  orderModel: SingleProductOrder;
+  orderModel: Order;
   message;
   action;
   moqModel;
@@ -31,6 +32,8 @@ export class PlaceOrderComponent implements OnInit {
   billingDetails: any;
   addAddressDetails: boolean;
   addressHolder: AddressModel;
+  orderSummary: any;
+  sumValue: any;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private productService: ProductService,
               private snackBar: MatSnackBar, private router: Router) { }
 
@@ -39,12 +42,9 @@ export class PlaceOrderComponent implements OnInit {
     /* this.viewSingleProduct(); */
     this.loginStatus = sessionStorage.getItem('login');
     this.userID = sessionStorage.getItem('userId');
-    if (this.loginStatus !== 'true') {
-      this.router.navigate(['account/signin']);
-    } else {
-      this.getCustomerDetails();
-
-    }
+    this.orderSummary = JSON.parse(sessionStorage.getItem('orderSummary'));
+    this.getCustomerDetails();
+    console.log(this.orderSummary);
   }
   createForm() {
     this.orderForm = this.fb.group({
@@ -59,7 +59,8 @@ export class PlaceOrderComponent implements OnInit {
       state: [''],
       pincode: [''],
       qty: [''],
-      productPrice: ['']
+      productPrice: [''],
+      totalPrice: ['']
     });
   }
 
@@ -104,13 +105,17 @@ onSubmit() {
 
 
 }
- /*  placeOrder(product, qty) {
+  placeOrder(total) {
+    console.log('tota;', this.totalValue);
     this.message = 'Order Placed  successfully';
-    this.orderModel = new SingleProductOrder();
-    this.orderModel.productId = product.productId;
-    this.orderModel.price = product.price;
-    this.orderModel.qty = +qty;
-    this.orderModel.total = this.calculatedPrice;
+    this.orderModel = new Order();
+    this.orderModel.products = this.orderSummary;
+    this.orderModel.total = this.totalValue;
+    this.orderModel.addressDetails = this.billingDetails;
+    this.orderModel.customerId = this.userID;
+  /*   this.orderModel.price = product.price;
+    this.orderModel.qty = +qty; */
+    console.log('total', this.orderModel.total);
     this.productService.placeOrder(this.orderModel).subscribe(data => {
       this.snackBar.open(this.message, this.action, {
         duration: 3000,
@@ -118,7 +123,7 @@ onSubmit() {
   }, err => {
     console.log(err);
   });
-  } */
+  }
   reduceQty(qty, price) {
     this.changingQty = +qty - this.moqModel.moqQuantity;
     this.calculatedPrice = +price * this.changingQty;
@@ -126,5 +131,14 @@ onSubmit() {
   increaseQty(qty, price) {
     this.changingQty = +qty + this.moqModel.moqQuantity;
     this.calculatedPrice = +price * this.changingQty;
+  }
+  total() {
+    let sum = 0;
+    this.orderSummary.map(item => {
+        sum += item.set * item.moq * item.price;
+      });
+    this.totalValue = sum;
+    return sum;
+
   }
 }

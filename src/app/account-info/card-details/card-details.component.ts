@@ -11,6 +11,7 @@ import { CardDetailModel } from './cardDetails.model';
 export class CardDetailsComponent implements OnInit {
   cardHolder: CardDetailModel;
   cardDetailsForm: FormGroup;
+  userId: string;
   constructor(private fb: FormBuilder, private accountService: AccountService) { }
   expiryMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   expiryYear = ['11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
@@ -31,12 +32,13 @@ export class CardDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.userId = sessionStorage.getItem('userId');
     this.cardHolder = new CardDetailModel();
     this.cardHolder.cardName = this.cardDetailsForm.controls.cardName.value;
     this.cardHolder.cardNumber = this.cardDetailsForm.controls.cardNumber.value;
     this.cardHolder.expiryMonth = this.cardDetailsForm.controls.expiryMonth.value;
     this.cardHolder.expiryYear = this.cardDetailsForm.controls.expiryYear.value;
-    this.accountService.getcardDetails(this.cardHolder).subscribe(data => {
+    this.accountService.getcardDetails(this.cardHolder, this.userId).subscribe(data => {
     this.cardHolder = data;
     console.log(this.cardHolder);
     this.cardHolder = data;

@@ -21,7 +21,6 @@ export class OrderManagementService {
     const url: string = this.serviceUrl + categoryUrl ;
     return this.httpClient.post<SingleProductOrder>(url, data);
   }
- 
 // customer Details
 getCustomerDetails(id): Observable<any> {
   const filterURL = 'customerDetail/' + id;

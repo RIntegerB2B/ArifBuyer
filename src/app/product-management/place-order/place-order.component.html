@@ -145,40 +145,50 @@
              </div>
             </div>
           </div>
-       <div class="form-group col-md-4 col-sm-12 ">
+    <div class="form-group col-md-5 col-sm-12 pageBoxLg" >
           <div>
             <b>Product Details</b>
           </div>
           <div class="row">
-            <div class="col-md-10 ">
-              Product
+            <div class="col-md-7">
+                Product
             </div>
+            <div class="col-md-2 ">
+                Quantity
+              </div>
             <div class="col-md-2 ">
               Total
             </div>
 
           </div>
-          <div class="row">
-            <div class="col-md-10 ">
-              <h4>{{productModel?.productName}}</h4>
+          <div class="row" *ngFor="let data of orderSummary">  
+            <div class="col-md-3">
+              <img class="img-fluid" style="height: 100px;width:100px;" [src]="data?.productImageName">
+            </div>
+            <div class="col-md-4 ">
+              <p>{{data?.productName}}</p>
             </div>
             <div class="col-md-2">
-              <h4>{{calculatedPrice}}</h4>
+                <p>{{data?.set * data?.moq }}</p>
+              </div>
+            <div class="col-md-2">
+               
+              <h5>{{data?.set * data?.moq * data?.price}}</h5>
             </div>
           </div>
           <div>
               <b>Price Details</b>
             </div>
           <div class="row">
-            <div class="col-md-10 ">
+            <div class="col-md-9 ">
               SubTotal
             </div>
             <div class="col-md-2 ">
-              <p>{{productModel?.price}}</p>
+                <h4> {{total()}}</h4>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-10 ">
+            <div class="col-md-9 ">
               Shipping Fee
             </div>
             <div class="col-md-2 ">
@@ -186,19 +196,21 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-10 ">
+            <div class="col-md-9 ">
               Total
             </div>
             <div class="col-md-2 ">
                 <input  formControlName="productPrice" hidden [value]="productModel?.price"  #priceValue  >
-              <p>{{productModel?.price}}</p>
+              <h3>{{total()}}</h3>
             </div>
           </div>
          
           <div class="row">
             <div class="col-md-6 ">
-              <button class="btn btn-float-right card-footer" [disabled]="!orderForm.valid"
-                (click)="placeOrder(productModel, qtyValue.value)">Place Order</button>
+              <!-- <button class="btn btn-float-right card-footer" [disabled]="!orderForm.valid"
+                (click)="placeOrder(productModel, qtyValue.value)">Place Order</button> -->
+                <button mat-raised-button color="primary" [disabled]="!orderForm.valid"  class="btnn" (click)="placeOrder(totalpriceValue)">
+                    Confirm Order  </button>
             </div>
 
           </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from './../account.service';
-import { profileModel } from './profile.model';
+import { ProfileModel } from './profile.model';
 import { mobileNumber } from './../../shared/validation';
 @Component({
   selector: 'app-profile',
@@ -9,8 +9,9 @@ import { mobileNumber } from './../../shared/validation';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  profileHolder: profileModel;
+  profileHolder: ProfileModel;
   profileForm: FormGroup;
+  userId: string;
   constructor(private fb: FormBuilder, private accountService: AccountService) { }
 
   ngOnInit() {
@@ -29,16 +30,14 @@ export class ProfileComponent implements OnInit {
     });
   }
   onSubmit() {
-    this.profileHolder = new profileModel();
-    this.profileHolder.emailId = this.profileForm.controls.emailId.value;
-    this.profileHolder.mobileNumber = this.profileForm.controls.mobileNumber.value;
-    this.profileHolder.password = this.profileForm.controls.password.value;
+    this.profileHolder = new ProfileModel();
+    this.userId = sessionStorage.getItem('userId');
     this.profileHolder.firstName = this.profileForm.controls.firstName.value;
     this.profileHolder.lastName = this.profileForm.controls.lastName.value;
     this.profileHolder.dateOfBirth = this.profileForm.controls.dateOfBirth.value;
     this.profileHolder.location = this.profileForm.controls.location.value;
     this.profileHolder.gender = this.profileForm.controls.gender.value;
-    this.accountService.getprofileDetails(this.profileHolder).subscribe(data => {
+    this.accountService.getprofileDetails(this.profileHolder, this.userId).subscribe(data => {
       this.profileHolder = data;
       console.log(this.profileHolder);
       this.profileHolder = data;

@@ -1,113 +1,105 @@
-<form  [formGroup]="profileForm"  (ngSubmit)="onSubmit()" novalidate style="padding-top:60px">
-    <div class="container-fluid">
-      
-      <div class="row">
-        <div class="col-md-6 mx-auto">
-             <div>
-                <mat-form-field class="example-full-width">
-                  <input matInput placeholder="firstName" maxlength="20" formControlName="firstName" required>
-                  <button mat-button matSuffix mat-icon-button aria-label="User Name">
-                    <mat-icon>account_circle</mat-icon>
-                  </button>
-                  <mat-error *ngIf="profileForm.controls['firstName'].errors?.required">
-                      firstName is
-                    <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="lastName" maxlength="20" formControlName="lastName" required>
-                    <button mat-button matSuffix mat-icon-button aria-label="User Name">
-                      <mat-icon>account_circle</mat-icon>
-                    </button>
-                    <mat-error *ngIf="profileForm.controls['lastName'].errors?.required">
-                        lastName is
-                      <strong>required</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate style="padding-top:60px">
+  <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="firstName" maxlength="20" formControlName="firstName" required>
+            <button mat-button matSuffix mat-icon-button aria-label="User Name">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-error *ngIf="profileForm.controls['firstName'].errors?.required">
+              firstName is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="lastName" maxlength="20" formControlName="lastName" required>
+            <button mat-button matSuffix mat-icon-button aria-label="User Name">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-error *ngIf="profileForm.controls['lastName'].errors?.required">
+              lastName is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
 
 
-               <div>
-                    <mat-form-field class="example-full-width">
-                      <input matInput placeholder="email" maxlength="20" formControlName="emailId" [required]="false">
-                      <button mat-button matSuffix mat-icon-button aria-label="email">
-                        <mat-icon>location_on</mat-icon>
-                      </button>
-                    </mat-form-field>
-                  </div>
-    
-    
-    
-    
-    
-             <div>
-                    <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Mobile Number" maxlength="10" formControlName="mobileNumber" required>
-                      <button mat-button matSuffix mat-icon-button aria-label="Mobile Number">
-                        <mat-icon>phone</mat-icon>
-                      </button>
-                      <mat-error *ngIf="profileForm.controls['mobileNumber'].errors?.required">
-                        Mobile Number is
-                        <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-     
-    
-     <div>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" formControlName="password" required>
-          <button mat-button matSuffix mat-icon-button aria-label="User Name">
-            <mat-icon>remove_red_eye</mat-icon>
-          </button>
-          <mat-error *ngIf="profileForm.controls['password'].errors?.required">
-            Password is
-            <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-      </div> 
-      <div>
+        <div>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="email" maxlength="20" formControlName="emailId" [required]="false">
+            <button mat-button matSuffix mat-icon-button aria-label="email">
+              <mat-icon>location_on</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+
+
+
+
+        <div>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Mobile Number" maxlength="10" formControlName="mobileNumber" required>
+            <button mat-button matSuffix mat-icon-button aria-label="Mobile Number">
+              <mat-icon>phone</mat-icon>
+            </button>
+            <mat-error *ngIf="profileForm.controls['mobileNumber'].errors?.required">
+              Mobile Number is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" formControlName="password" required>
+            <button mat-button matSuffix mat-icon-button aria-label="User Name">
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <mat-error *ngIf="profileForm.controls['password'].errors?.required">
+              Password is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="location" maxlength="20" formControlName="location" required>
             <button mat-button matSuffix mat-icon-button aria-label="User Name">
               <mat-icon>location_on</mat-icon>
             </button>
             <mat-error *ngIf="profileForm.controls['location'].errors?.required">
-                location is
+              location is
               <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div>
-        <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Date of Birth"formControlName="dateOfBirth" required>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="dateOfBirth" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
         <div>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="gender" maxlength="20" formControlName="gender" required>
-              <button mat-button matSuffix mat-icon-button aria-label="User Name">
-                <mat-icon>location_on</mat-icon>
-              </button>
-              <mat-error *ngIf="profileForm.controls['gender'].errors?.required">
-                  gender is
-                <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-      <button mat-raised-button color="secondary" type="reset">Reset</button>
-      <button mat-raised-button color="primary" type="submit">Save</button>
-</div>
-</div>
-</div>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="gender" maxlength="20" formControlName="gender" required>
+            <button mat-button matSuffix mat-icon-button aria-label="User Name">
+              <mat-icon></mat-icon>
+            </button>
+            <mat-error *ngIf="profileForm.controls['gender'].errors?.required">
+              gender is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <button  class="registerButton" mat-raised-button color="primary" type="submit">Save</button>
+      </div>
+    </div>
+  </div>
 </form>
-
-
-
-
-
- 

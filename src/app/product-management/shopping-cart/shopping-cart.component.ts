@@ -169,6 +169,11 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
   placeOrder() {
-    this.router.navigate(['product/placeorder']);
+    if (JSON.parse(sessionStorage.getItem('login'))) {
+      this.router.navigate(['product/placeorder']);
+      sessionStorage.setItem('orderSummary', JSON.stringify(this.shopModel));
+    } else {
+    this.router.navigate(['account/signin']);
+   }
   }
 }

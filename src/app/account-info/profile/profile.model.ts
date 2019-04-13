@@ -1,10 +1,7 @@
-export class profileModel {
-    emailId:string;
-    mobileNumber:number;
-    password:string;
-    firstName:string;
-    lastName:string;
-    dateOfBirth:Date;
-    location:string;
-    gender:string;
+export class ProfileModel {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: Date;
+    location: string;
+    gender: string;
 }

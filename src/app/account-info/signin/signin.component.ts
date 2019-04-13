@@ -43,7 +43,6 @@ onSubmit() {
   this.accountService.signIn(this.signInModel).subscribe(data => {
     if (!data) {
      this.pwdError = true;
-     /* this.setCookie('false'); */
      sessionStorage.setItem('login', 'false');
      sessionStorage.removeItem('userId');
     } else {
