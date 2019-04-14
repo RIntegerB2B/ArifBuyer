@@ -5,11 +5,20 @@ import { CardDetailsComponent } from './card-details/card-details.component';
 import { AddressComponent } from './address/address.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SigninComponent } from './signin/signin.component';
-import { from } from 'rxjs';
-const routes: Routes = [{ path: 'registration', component: RegistrationComponent },
+import { AccountDetailsComponent } from './account-details/account-details.component';
+import { ListAddressComponent } from './list-address/list-address.component';
+import { ListCardComponent } from './list-card/list-card.component';
+const routes: Routes = [
+ {path: '',
+  component: AccountDetailsComponent,
+children: [
 { path: 'card', component: CardDetailsComponent },
 { path: 'address', component: AddressComponent },
 { path: 'profile', component: ProfileComponent },
+{ path: 'listcard', component: ListCardComponent },
+{ path: 'listaddress', component: ListAddressComponent }]
+},
+{ path: 'registration', component: RegistrationComponent },
 { path: 'signin', component: SigninComponent }
 ];
 

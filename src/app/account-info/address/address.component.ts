@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from './../account.service';
 import { AddressModel } from './address.model';
-
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 
 
@@ -17,7 +17,9 @@ export class AddressComponent implements OnInit {
   addressForm: FormGroup;
   userId;
   states = ['TN', 'UP', 'AP', 'KL', 'KA', 'MH', 'CH', 'JK', 'UK', 'FM', 'PONDI', 'GJ', 'JK'];
-  constructor(private fb: FormBuilder, private accountService: AccountService) { }
+  display = 'none';
+  constructor(private fb: FormBuilder, private accountService: AccountService,
+              public dialogRef: MatDialogRef<AddressComponent>) { }
 
   ngOnInit() {
     this.addressDetails();
@@ -36,7 +38,6 @@ export class AddressComponent implements OnInit {
       mobileNumber: ['']
 
     });
-
   }
 
 
@@ -52,7 +53,9 @@ export class AddressComponent implements OnInit {
     this.addressHolder.mobileNumber = this.addressForm.controls.mobileNumber.value;
     this.accountService.getaddressDetails(this.addressHolder, this.userId).subscribe(data => {
       this.addressHolder = data;
+      this.dialogRef.close(true);
     }, error => {
+      this.dialogRef.close(false);
       console.log(error);
     }
     );

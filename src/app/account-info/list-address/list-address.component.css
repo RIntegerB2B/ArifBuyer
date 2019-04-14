@@ -1,0 +1,31 @@
+.addAddress {
+    margin: 20px auto;
+    border: 0.5px solid #d4d5d9;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #526cd0;
+    padding: 12px;
+    text-align: center;
+    width: 180px;
+    cursor: pointer;
+}
+
+.listOfAddress {
+    background-color: white;
+    margin-bottom: 6px;
+    color: #696E79;
+    display: block;
+}
+.addAddressDetail{
+    margin: 10px auto;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #526cd0;
+    padding: 5px;
+    text-align: center;
+    width: 180px;
+    cursor: pointer;
+}

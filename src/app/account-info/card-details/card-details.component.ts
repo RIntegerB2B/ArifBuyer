@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from './../account.service';
 import { CardDetailModel } from './cardDetails.model';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-card-details',
@@ -10,12 +11,14 @@ import { CardDetailModel } from './cardDetails.model';
 })
 export class CardDetailsComponent implements OnInit {
   cardHolder: CardDetailModel;
+  cardModel: CardDetailModel[];
   cardDetailsForm: FormGroup;
   userId: string;
-  constructor(private fb: FormBuilder, private accountService: AccountService) { }
+  constructor(private fb: FormBuilder, private accountService: AccountService,  public dialogRef: MatDialogRef<CardDetailsComponent>) { }
   expiryMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  expiryYear = ['11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
-  '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '38', '39', '40'];
+  expiryYear = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023',
+  '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2038',
+   '2039', '2040'];
   ngOnInit() {
     this.cardDetails();
   }
@@ -26,7 +29,6 @@ export class CardDetailsComponent implements OnInit {
       cardNumber: [''],
       expiryMonth: [''],
       expiryYear: ['']
-
     });
 
   }
@@ -40,35 +42,16 @@ export class CardDetailsComponent implements OnInit {
     this.cardHolder.expiryYear = this.cardDetailsForm.controls.expiryYear.value;
     this.accountService.getcardDetails(this.cardHolder, this.userId).subscribe(data => {
     this.cardHolder = data;
-    console.log(this.cardHolder);
+    this.dialogRef.close(true);
     this.cardHolder = data;
     },  error => {
+      this.dialogRef.close(false);
       console.log(error);
-    }
-    );
-    /* console.log(this.regForm); */
-
-
+    });
   }
   getReset() {
     this.cardDetailsForm.reset();
   }
-
-
-
-
-
-  /* var year = new Date().getFullYear();
-var range = [];
-
-range.push(year);
-
-for (var i = 1; i < 7; i++) {
-    range.push(year + i);
-}
-
-$scope.years = range; */
-
 
 }
 

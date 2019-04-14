@@ -41,5 +41,12 @@ export class SharedService {
     }
 
   }
+  getLogin() {
+  return sessionStorage.getItem('login');
+}
+sessionLogout() {
+  sessionStorage.setItem('login', 'false');
+  sessionStorage.removeItem('userId');
+}
 }
 

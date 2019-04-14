@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   navBarShow()   {
     this.dropdownShow = !this.dropdownShow;
   }
+  
 
   allHeader() {
     this.sharedService.getHeaderDetails().subscribe(data => {
@@ -34,5 +35,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-
+  logOut()    {
+    this.sharedService.sessionLogout();
+  }
 }

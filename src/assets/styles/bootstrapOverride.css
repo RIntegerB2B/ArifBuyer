@@ -35,7 +35,12 @@
   padding: 4px;
   margin: 6px;
 }
-
+.gridRow {
+  box-shadow: 0 1px 2px 0 #00000033, 0 1px 2px 0 rgba(0, 0, 0, .19);
+  background-color: #fff;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
 
 
 .gridImage {
@@ -75,20 +80,20 @@
   margin-top: 10px;
 }
 
-.bg-primary {
-  background-color: #FFFFFF !important;
-  color: #ffff;
-}
 
 .bg-primary {
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   top: 0px;
   position: fixed;
   right: 0px;
   left: 0px;
   z-index: 9;
-  background: #FFFFFF;
+  background: #526cd0 !important;
 }
 .navbar-light .navbar-nav .navText {
+  color: black;
+}
+
+.navText {
   color: black;
 }

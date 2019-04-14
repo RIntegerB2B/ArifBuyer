@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@ang
 import { AccountService } from './../account.service';
 import { RegModel } from './registration.model';
 import { mobileNumber } from './../../shared/validation';
-import { from } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private accountService: AccountService) { }
+  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
 
   ngOnInit() {
     this.regForm = this.fb.group({
@@ -27,6 +27,8 @@ export class RegistrationComponent implements OnInit {
 
     });
   }
+
+ 
   onSubmit() {
     this.holder = new RegModel();
     this.holder.emailId = this.regForm.controls.emailId.value;
@@ -34,6 +36,7 @@ export class RegistrationComponent implements OnInit {
     this.holder.password = this.regForm.controls.password.value;
     this.accountService.getregForm(this.holder).subscribe(data => {
       this.holder = data;
+      this.router.navigate(['account/signin']);
     }, error => {
       console.log(error);
     });

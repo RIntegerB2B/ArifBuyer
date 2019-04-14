@@ -32,12 +32,26 @@ export class AccountService {
   }
 
 
-  getprofileDetails(profileHolder, userId): Observable<ProfileModel> {
+  getprofileDetails(profileHolder, userId): Observable<RegModel[]> {
     const urlprofile = this.serviceUrl + 'profileupdate/' + userId;
-    return this.http.put<ProfileModel>(urlprofile, profileHolder);
+    return this.http.put<RegModel[]>(urlprofile, profileHolder);
   }
-
-
+  getCustomerDetails(userId): Observable<RegModel> {
+    const urlprofile = this.serviceUrl + 'customerdetail/' + userId;
+    return this.http.get<RegModel>(urlprofile);
+  }
+  customerAddressDelete(userId, addressId): Observable<RegModel> {
+    const urlprofile = this.serviceUrl + 'address/' + userId + '/delete/' + addressId;
+    return this.http.delete<RegModel>(urlprofile);
+  }
+  customerAddressUpdate(userId, addressId, updateDetails): Observable<RegModel> {
+    const urlprofile = this.serviceUrl + 'address/' + userId + '/update/' + addressId;
+    return this.http.put<RegModel>(urlprofile, updateDetails);
+  }
+  customerCardDelete(userId, cardId): Observable<RegModel> {
+    const urlprofile = this.serviceUrl + 'card/' + userId + '/delete/' + cardId;
+    return this.http.delete<RegModel>(urlprofile);
+  }
   signIn(data: SignIn): Observable<any> {
     const signInurl = 'admin/validate';
     const url: string = this.serviceUrl + signInurl;
