@@ -1,3 +1,21 @@
-<p>
-  order works!
-</p>
+
+<div class="row gridRow border p-2">
+  <div class="col-md-4">
+    <div class="text-secondary">
+      <strong>Order ID: </strong><span>{{order.orderId}}</span>
+    </div>
+  </div>
+    <div class="col-md-4">
+        <div class="text-secondary">
+          <strong>Customer ID: </strong><span>{{order.customerId}}</span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="text-secondary">
+          <strong>Total: </strong><span>{{order.total}}</span>
+        </div>
+    </div>
+    <!-- <div class="text-secondary"><strong>Card Number: </strong>{{card.cardNumber }}</div>
+    <div class="text-secondary"><strong>Expiry Month: </strong>{{card.expiryMonth }}</div>
+    <div class="text-secondary"><strong>Expiry Year: </strong>{{card.expiryYear }}</div> -->
+</div>

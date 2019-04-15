@@ -1,13 +1,13 @@
 export class AddressModel {
     _id: string;
+    name: string;
+    mobileNumber: number;
     streetAddress: string;
-    building: number;
-    landmark: number;
+    building: string;
+    landmark: string;
     city: string;
     state: string;
     pincode: string;
-    name: string;
-    mobileNumber: string;
     editAddress: boolean;
 }
 

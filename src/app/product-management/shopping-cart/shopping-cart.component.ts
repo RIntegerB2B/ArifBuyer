@@ -77,6 +77,7 @@ export class ShoppingCartComponent implements OnInit {
       productDescription: product.productDescription,
       productImageName: product.productImageName,
        price: product.price,
+       ID: product.ID,
      /* subTotal: product.price * 1, */
       set: 1
     };
@@ -140,7 +141,6 @@ export class ShoppingCartComponent implements OnInit {
       productName: product.productName,
       productDescription: product.productDescription,
       productImageName: product.productImageName,
-      price: product.price,
       subTotal: product.price * 1,
       set: 1
     };

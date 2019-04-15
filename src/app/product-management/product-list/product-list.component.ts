@@ -613,7 +613,8 @@ export class ProductListComponent implements OnInit {
      price: product.price,
      /*   subTotal: product.price * 1, */
       set: 1,
-      moq: product.moq
+      moq: product.moq,
+      ID: product.productId,
     };
     const totalItem = [];
     totalItem.push(item);
@@ -632,6 +633,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCartLocal(product) {
+    console.log(product);
     this.message = 'Product Added To Cart';
     const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     if (cart.length === 0) {
@@ -641,6 +643,7 @@ export class ProductListComponent implements OnInit {
         productDescription: product.productDescription,
         productImageName: product.productImageName[0],
     price: product.price,
+    ID: product.productId,
        /*      subTotal: product.price * 1, */
         set: 1,
         moq: product.moq
@@ -670,7 +673,8 @@ export class ProductListComponent implements OnInit {
        price: product.price,
          /*     subTotal: product.price * 1, */
           set: 1,
-          moq: product.moq
+          moq: product.moq,
+          ID: product.productId,
         };
         cart.push(items);
         sessionStorage.setItem('cart', JSON.stringify(cart));

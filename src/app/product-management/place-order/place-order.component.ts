@@ -8,6 +8,9 @@ import { Product } from '../../shared/model/product.model';
 import {SingleProductOrder} from '../../shared/model/singleProductOrder.model';
 import {AddressModel} from '../../account-info/address/address.model';
 import {Order} from '../../shared/model/order.model';
+import {PublicService} from '../../shared/publicService';
+import {Inventory} from './inventory.model';
+import { from } from 'rxjs';
 
 
 
@@ -34,8 +37,10 @@ export class PlaceOrderComponent implements OnInit {
   addressHolder: AddressModel;
   orderSummary: any;
   sumValue: any;
+  serviceUrl;
+  inventoryModel: Inventory;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private productService: ProductService,
-              private snackBar: MatSnackBar, private router: Router) { }
+              private snackBar: MatSnackBar, private router: Router, private publicService: PublicService) { }
 
   ngOnInit() {
     this.createForm();
@@ -44,7 +49,7 @@ export class PlaceOrderComponent implements OnInit {
     this.userID = sessionStorage.getItem('userId');
     this.orderSummary = JSON.parse(sessionStorage.getItem('orderSummary'));
     this.getCustomerDetails();
-    console.log(this.orderSummary);
+    this.serviceUrl = this.publicService.getConfigType().serviceUrl; // change it to domain name
   }
   createForm() {
     this.orderForm = this.fb.group({
@@ -74,7 +79,6 @@ export class PlaceOrderComponent implements OnInit {
 getCustomerDetails() {
   this.productService.getCustomerDetails(this.userID).subscribe(data => {
     this.billingDetails = data.addressDetails;
-    console.log( data.addressDetails);
     if ( data.addressDetails === undefined) {
 this.addAddressDetails = true;
     } else {
@@ -106,23 +110,39 @@ onSubmit() {
 
 }
   placeOrder(total) {
-    console.log('tota;', this.totalValue);
     this.message = 'Order Placed  successfully';
     this.orderModel = new Order();
     this.orderModel.products = this.orderSummary;
     this.orderModel.total = this.totalValue;
     this.orderModel.addressDetails = this.billingDetails;
     this.orderModel.customerId = this.userID;
-  /*   this.orderModel.price = product.price;
-    this.orderModel.qty = +qty; */
-    console.log('total', this.orderModel.total);
+    this.inventoryModel = new Inventory();
+    this.inventoryModel.products = this.orderSummary;
+    this.inventoryModel.domainName = this.serviceUrl;
     this.productService.placeOrder(this.orderModel).subscribe(data => {
       this.snackBar.open(this.message, this.action, {
         duration: 3000,
       });
-  }, err => {
+      this.removeCart();
+      this.inventoryUpdate(this.inventoryModel);
+      this.router.navigate(['/home']);
+      }, err => {
     console.log(err);
   });
+  }
+  inventoryUpdate(inventory) {
+    this.productService.inventoryUpdate(inventory).subscribe(data => {
+      console.log(data);
+    }, err => {
+      console.log(err);
+    });
+  }
+  removeCart() {
+    this.productService.clearCart(this.userID).subscribe(data => {
+      console.log(data);
+    }, err => {
+      console.log(err);
+    });
   }
   reduceQty(qty, price) {
     this.changingQty = +qty - this.moqModel.moqQuantity;

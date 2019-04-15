@@ -80,16 +80,15 @@
   margin-top: 10px;
 }
 
-
+/* 
 .bg-primary {
-  /* color: #FFFFFF; */
   top: 0px;
   position: fixed;
   right: 0px;
   left: 0px;
   z-index: 9;
   background: #526cd0 !important;
-}
+} */
 .navbar-light .navbar-nav .navText {
   color: black;
 }

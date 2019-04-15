@@ -145,4 +145,18 @@ placeOrder(orderdetails: Order): Observable<Order>  {
   return this.httpClient.post<Order>(url, orderdetails);
 }
 
+clearCart(id): Observable<Order>  {
+  const cartUrl = 'cart/' + id;
+  const url: string = this.serviceUrl + cartUrl ;
+  return this.httpClient.delete<Order>(url);
+}
+
+
+// inventory update in admin
+
+inventoryUpdate(orderdetails: Order): Observable<Order>  {
+  const cartUrl = 'inventory/';
+  const url: string = this.mainServiceUrl + cartUrl;
+  return this.httpClient.post<Order>(url, orderdetails);
+}
 }

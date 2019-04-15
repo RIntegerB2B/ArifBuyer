@@ -8,7 +8,7 @@ import { SignIn } from './signin/signIn.model';
 import { AppSetting } from './../config/appSetting';
 import { Observable, from } from 'rxjs';
 import { Product } from './../shared/product.model';
-
+import { Order } from './../shared/model/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +61,11 @@ export class AccountService {
     const cartUrl = 'cart';
     const url: string = this.serviceUrl + cartUrl;
     return this.http.post<any>(url, cart);
+  }
+
+  getCustomerOrderDetails(userId): Observable<Order> {
+    const urlprofile = this.serviceUrl + 'orderdetails/' + userId;
+    return this.http.get<Order>(urlprofile);
   }
 }
 

@@ -30,6 +30,7 @@ export class CategoryComponent implements OnInit {
   getSuperCategory() {
     this.sharedService.getSuperCategory().subscribe(data => {
       this.superCategory = data;
+      console.log(data);
     });
   }
   toggleDropdown(cat) {

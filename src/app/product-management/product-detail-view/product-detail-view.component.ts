@@ -63,6 +63,7 @@ this.details = true;
     }
   }
   addToCartServer(userId, product) {
+    console.log('[product to cart', product);
     this.message = 'Product added to Cart';
  /*    this.moqQty = this.moqValue.filter(
       data => data._id === product.moq);
@@ -70,7 +71,7 @@ this.details = true;
     console.log('order qty', this.moqQty[0].moqQuantity); */
     console.log(product.price);
     const item = {
-      productId: product._id,
+      productId: product.productId,
       productName: product.productName,
       productDescription: product.productDescription,
       productImageName: product.productImageName[0],
@@ -80,6 +81,7 @@ this.details = true;
       set: this.setQty,
       moq: product.moq,
       price: product.price,
+      ID: product.productId,
     /*   moqQty: this.moqQtyValue */
     };
     const totalItem = [];
@@ -112,7 +114,8 @@ this.details = true;
         subTotal: product.price * 1, */
    /*      qty: 1, */
         set: this.setQty,
-        moq: product.moq
+        moq: product.moq,
+        ID: product.productId,
       };
       cart.push(item);
       sessionStorage.setItem('cart', JSON.stringify(cart));
@@ -139,6 +142,7 @@ this.details = true;
           set: this.setQty,
           moq: product.moq,
         price: product.price,
+        ID: product.productId,
          /*    subTotal: product.price * 1,
           qty: 1 */
         };

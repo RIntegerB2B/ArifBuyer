@@ -8,6 +8,7 @@ import { SigninComponent } from './signin/signin.component';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { ListAddressComponent } from './list-address/list-address.component';
 import { ListCardComponent } from './list-card/list-card.component';
+import {OrderComponent} from './order-mananagement/order/order.component';
 const routes: Routes = [
  {path: '',
   component: AccountDetailsComponent,
@@ -19,7 +20,8 @@ children: [
 { path: 'listaddress', component: ListAddressComponent }]
 },
 { path: 'registration', component: RegistrationComponent },
-{ path: 'signin', component: SigninComponent }
+{ path: 'signin', component: SigninComponent },
+{ path: 'order', component: OrderComponent }
 ];
 
 @NgModule({
