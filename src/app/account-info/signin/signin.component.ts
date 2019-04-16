@@ -49,7 +49,7 @@ onSubmit() {
       /* this.setCookie(data[0]._id); */
       sessionStorage.setItem('login', 'true');
       sessionStorage.setItem('userId', data.customerId);
-      this.router.navigate(['product/shopping']);
+      this.router.navigate(['account/listaddress']);
       this.logInUserData();
     }
   });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from './../shared.service';
 import { Header } from './../navbar/header.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
   header: Header[];
   logoImage: string;
   dropdownShow = false;
-  constructor(public sharedService: SharedService) { }
+  constructor(public sharedService: SharedService ,private router: Router) { }
 
   ngOnInit() {
     this.allHeader();
@@ -34,8 +35,8 @@ export class NavbarComponent implements OnInit {
       console.log(error);
     });
   }
-
   logOut()    {
     this.sharedService.sessionLogout();
+    this.router.navigate(['account/signin']);
   }
 }

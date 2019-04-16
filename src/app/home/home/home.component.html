@@ -1,5 +1,20 @@
-<div class="container-fluid">
-  <app-banner [banner]="banner"></app-banner>
+<!-- <div class="container-fluid"> -->
+    <!-- <app-banner [banner]="banner"></app-banner> -->
+    <div class="row">
+      <div class="col-md-12" style="padding: 0px" *ngFor="let bannerImg of banner; let i = index">
+        <div *ngIf="slideIndex === i">
+          <div>
+              <div >
+              <figure id=slider>
+                <img  [src]="bannerImg.bannerImage" class="img-fluid"> 
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="prev" (click)="minusSlides(slideIndex)">&#10094;</a>
+    <a class="next" (click)="plusSlides(slideIndex)">&#10095;</a>
 
   <app-ads [adsData]="adsData"></app-ads>
   <!-- <app-category-content></app-category-content>
@@ -9,4 +24,4 @@
 
   ></app-promotion>
   <!-- <app-product-content></app-product-content> -->
-</div>
+<!-- </div> -->

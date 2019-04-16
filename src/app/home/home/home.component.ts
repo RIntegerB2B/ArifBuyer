@@ -10,7 +10,8 @@ import { Promotion } from './../promotion/promotion.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  banner: Banner;
+  banner: Banner[];
+  slideIndex = 0;
   adsData: Ads;
   promotion: Promotion;
   constructor(private homeService: HomeService) { }
@@ -42,5 +43,20 @@ export class HomeComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+  minusSlides(n) {
+    const min = --n;
+    if (min < 0) {
+      this.slideIndex = this.banner.length - 1;
+    } else {
+      this.slideIndex = min;
+    }
+  }
+  plusSlides(n) {
+    if (this.banner.length - 1 < n || this.banner.length - 1 <= n) {
+      this.slideIndex = 0;
+    } else {
+      this.slideIndex = ++n;
+    }
   }
 }

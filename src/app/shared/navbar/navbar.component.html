@@ -13,34 +13,41 @@
       </div>
     </ul>
     <div class="navbar-collapse collapse justify-content-end">
-    <ul class="navbar-nav">
-      <li><a routerLink="product/shopping" class="nav-link navText" href="#"><i class="fa fa-shopping-cart"
-            aria-hidden="true"></i><span class="badge badge-light"></span>
-          {{this.sharedService.addToQty()}}</a>
-      </li>
-      <li class="dropdown">
-        <a class="nav-link navText" (click)="navBarShow()" data-toggle="dropdown">Account<span
-            class="fa fa-angle-down"></span></a>
-        <ul class="dropdown-menu megaMenu" role="menu" [ngClass]="{show: dropdownShow}">
+      <ul class="navbar-nav">
+        <li><a routerLink="product/shopping" class="nav-link navText" href="#"><i class="fa fa-shopping-cart"
+              aria-hidden="true"></i><span class="badge badge-light"></span>
+            {{this.sharedService.addToQty()}}</a>
+        </li>
+        <li class="dropdown" *ngIf="this.sharedService.getLogin()">
+          <a class="nav-link navText" (click)="navBarShow()" data-toggle="dropdown">Account<span
+              class="fa fa-angle-down"></span></a>
+          <ul class="dropdown-menu megaMenu" role="menu"
+           [ngClass]="{show: dropdownShow}">
             <li class="nav-item">
-              <a class="nav-link navText"  (click)="navBarShow()"  routerLink="/account/profile">Profile</a>
+              <a class="nav-link navText" (click)="navBarShow()" 
+              routerLink="/account/profile">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link navText" (click)="navBarShow()"  routerLink="/account/listaddress">Address</a>
+              <a class="nav-link navText" (click)="navBarShow()" 
+              routerLink="/account/listaddress">Address</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link navText"  (click)="navBarShow()"  routerLink="/account/listcard">Card</a>
+              <a class="nav-link navText" (click)="navBarShow()" 
+              routerLink="/account/listcard">Card</a>
             </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link navText" routerLink="/account/signin">login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link navText" routerLink="/account/registration">Signup</a>
-      </li>
-    </ul>
+          </ul>
+        </li>
+        <li class="nav-item" *ngIf="!this.sharedService.getLogin()">
+          <a class="nav-link navText" routerLink="/account/signin">login</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sharedService.getLogin()">
+            <a class="nav-link navText"(click)="logOut()">logout</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link navText" routerLink="/account/registration">Signup</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  </div>
-</nav>
+</nav> 
 <app-category></app-category>
