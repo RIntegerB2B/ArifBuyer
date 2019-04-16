@@ -49,7 +49,8 @@ onSubmit() {
       /* this.setCookie(data[0]._id); */
       sessionStorage.setItem('login', 'true');
       sessionStorage.setItem('userId', data.customerId);
-      this.router.navigate(['account/listaddress']);
+      sessionStorage.setItem('userEmailId', data.emailId);
+      this.router.navigate(['product/shopping']);
       this.logInUserData();
     }
   });
@@ -69,6 +70,7 @@ addToCartServer(userId, product) {
   this.cart.product = product;
   this.accountService.addToCart(this.cart).subscribe(data => {
   this.productModel = data;
+  sessionStorage.removeItem('cart');
   }, error => {
     console.log(error);
   });

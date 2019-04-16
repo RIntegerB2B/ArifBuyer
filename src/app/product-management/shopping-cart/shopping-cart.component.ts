@@ -87,8 +87,8 @@ export class ShoppingCartComponent implements OnInit {
     this.cart.userId = userId;
     this.cart.product = totalItem;
     this.productService.addToCart(this.cart).subscribe(data => {
-      console.log('incremented count', data);
       this.shopModel = data;
+      sessionStorage.setItem('cartLength', JSON.stringify(this.shopModel.length));
     }, error => {
       console.log(error);
     });
@@ -129,6 +129,7 @@ export class ShoppingCartComponent implements OnInit {
   shoppingCartUser(userId) {
     this.productService.shoppingUser(userId).subscribe(data => {
       this.shopModel = data;
+      sessionStorage.setItem('cartLength', JSON.stringify(this.shopModel.length));
       console.log(this.shopModel);
     }, err => {
       console.log(err);
@@ -149,6 +150,7 @@ export class ShoppingCartComponent implements OnInit {
     this.cart.product = item;
     this.productService.addToCartMinus(this.cart).subscribe(data => {
       this.shopModel = data;
+      sessionStorage.setItem('cartLength', JSON.stringify(this.shopModel.length));
     }, err => {
       console.log(err);
     });
@@ -164,6 +166,7 @@ export class ShoppingCartComponent implements OnInit {
   removeCart(userid, item) {
     this.productService.deleteToCart(userid, item).subscribe(data => {
       this.shopModel = data;
+      sessionStorage.setItem('cartLength', JSON.stringify(this.shopModel.length));
     }, err => {
       console.log(err);
     });

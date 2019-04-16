@@ -604,7 +604,6 @@ export class ProductListComponent implements OnInit {
   }
   addToCartServer(userId, product) {
     this.message = 'Product Added To Cart';
-    console.log(product.price);
     const item = {
       productId: product._id,
       productName: product.productName,
@@ -623,6 +622,7 @@ export class ProductListComponent implements OnInit {
     this.cart.product = totalItem;
     this.productService.addToCart(this.cart).subscribe(data => {
       this.cartModel = data;
+      sessionStorage.setItem('cartLength', JSON.stringify(this.cartModel.length));
       this.snackBar.open(this.message, this.action, {
         duration: 3000,
       });
@@ -658,8 +658,7 @@ export class ProductListComponent implements OnInit {
         return ite.productId === product._id;
       });
       if (item) { // check if is not new item
-        item.qty++;
-        item.subTotal = item.price * item.qty;
+        item.set = item.set + 1;
         sessionStorage.setItem('cart', JSON.stringify(cart));
         this.snackBar.open(this.message, this.action, {
           duration: 3000,

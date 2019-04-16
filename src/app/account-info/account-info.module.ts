@@ -46,11 +46,12 @@ import { ListAddressComponent } from './list-address/list-address.component';
 import { ListCardComponent } from './list-card/list-card.component';
 import { CardDetailsService } from './card-details/card-details.service';
 import { OrderComponent } from './order-mananagement/order/order.component';
+import { ViewSingleOrderComponent } from './order-mananagement/view-single-order/view-single-order.component';
 
 @NgModule({
   declarations: [RegistrationComponent,
     CardDetailsComponent, AddressComponent, ProfileComponent,
-     SigninComponent, AccountDetailsComponent, ListAddressComponent, ListCardComponent, OrderComponent],
+     SigninComponent, AccountDetailsComponent, ListAddressComponent, ListCardComponent, OrderComponent, ViewSingleOrderComponent],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     AccountInfoRoutingModule,
@@ -85,6 +86,6 @@ import { OrderComponent } from './order-mananagement/order/order.component';
     MatSliderModule
   ],
   providers: [AccountService, AddressService, CardDetailsService],
-  entryComponents: [AccountDetailsComponent,  CardDetailsComponent]
+  entryComponents: [AddressComponent,  CardDetailsComponent]
 })
 export class AccountInfoModule { }

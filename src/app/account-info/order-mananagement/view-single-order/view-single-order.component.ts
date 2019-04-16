@@ -2,26 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from './../../account.service';
 import { Order } from './../../../shared/model/order.model';
 import {Product} from './../../../shared/model/product.model';
+import { ParamMap, ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  selector: 'app-view-single-order',
+  templateUrl: './view-single-order.component.html',
+  styleUrls: ['./view-single-order.component.css']
 })
-export class OrderComponent implements OnInit {
+export class ViewSingleOrderComponent implements OnInit {
   userId: string;
   order: Order;
   productModel: Product;
-  constructor(private accountService: AccountService) { }
+  orderId;
+  constructor(private accountService: AccountService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.orderId = this.route.snapshot.params.id;
     this.getCards();
     this.getProducts();
-  }
 
+  }
   getCards() {
     this.userId = sessionStorage.getItem('userId');
-    this.accountService.getCustomerOrderDetails(this.userId).subscribe(data => {
+    this.accountService.getCustomerSingleOrderDetails(this.userId, this.orderId).subscribe(data => {
     this.order = data;
     }, error => {
       console.log(error);

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<nav class="navbar  navbar-expand-lg">
   <a class="navbar-brand" href="#">
     <img [src]="logoImage">
   </a>
@@ -19,7 +19,7 @@
             {{this.sharedService.addToQty()}}</a>
         </li>
         <li class="dropdown" *ngIf="this.sharedService.getLogin()">
-          <a class="nav-link navText" (click)="navBarShow()" data-toggle="dropdown">Account<span
+  <a class="nav-link navText" (click)="navBarShow()" data-toggle="dropdown">{{this.sharedService.findName()}}<span
               class="fa fa-angle-down"></span></a>
           <ul class="dropdown-menu megaMenu" role="menu"
            [ngClass]="{show: dropdownShow}">
@@ -35,16 +35,20 @@
               <a class="nav-link navText" (click)="navBarShow()" 
               routerLink="/account/listcard">Card</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link navText" (click)="navBarShow()" 
+              routerLink="/account/order">My Orders</a>
+            </li>
           </ul>
         </li>
         <li class="nav-item" *ngIf="!this.sharedService.getLogin()">
-          <a class="nav-link navText" routerLink="/account/signin">login</a>
+          <a class="nav-link navText" routerLink="/account/signin">Login</a>
         </li>
         <li class="nav-item" *ngIf="this.sharedService.getLogin()">
-            <a class="nav-link navText"(click)="logOut()">logout</a>
+            <a class="nav-link navText"(click)="logOut()">LogOut</a>
           </li>
         <li class="nav-item">
-          <a class="nav-link navText" routerLink="/account/registration">Signup</a>
+          <a class="nav-link navText" routerLink="/account/registration">SignUp</a>
         </li>
       </ul>
     </div>

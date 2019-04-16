@@ -6,17 +6,7 @@
     color: #697071;
   }
   
-  .registerButton {
-   background-color: rgb(170, 66, 156) !important;
-    color: #FFFFFF;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    display: block;
-    width: 100%;
-    border: 0px;
-    text-transform: uppercase;
-  }
+ 
   .registerSetup   {
     margin-bottom: 5%;
   }
@@ -52,9 +42,30 @@
     margin: 10px auto;
     text-transform: uppercase;
     font-weight: 800;
-    color: #526cd0;
+    color: #696E79;
     padding: 5px;
     text-align: center;
     width: 180px;
     cursor: pointer;
 }
+.registerButton {
+  background-color:  rgb(179, 179, 179)!important;
+  color: #999999;
+   font-size: 13px;
+   font-weight: 500;
+   letter-spacing: 2px;
+   display: block;
+   width: 100%;
+   text-transform: uppercase;
+   border: 6px;
+   border-radius: 30px;
+ }
+ .h-one{
+  color: #474747;
+  font-size: 16px;
+  padding-top: 10px;
+  
+    }
+    .navbar-expand-lg{
+      background: rgb(179, 179, 179);
+    }

@@ -67,6 +67,16 @@ export class AccountService {
     const urlprofile = this.serviceUrl + 'orderdetails/' + userId;
     return this.http.get<Order>(urlprofile);
   }
+  getCustomerSingleOrderDetails(userId, orderId): Observable<Order> {
+    const urlprofile = this.serviceUrl + 'order/' + userId + '/details/' + orderId;
+    return this.http.get<Order>(urlprofile);
+  }
+
+  getProducts(): Observable<any> {
+    const categoryUrl = 'product';
+    const url: string = this.serviceUrl + categoryUrl;
+    return this.http.get<Product>(url);
+  }
 }
 
 

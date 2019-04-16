@@ -159,4 +159,9 @@ inventoryUpdate(orderdetails: Order): Observable<Order>  {
   const url: string = this.mainServiceUrl + cartUrl;
   return this.httpClient.post<Order>(url, orderdetails);
 }
+
+getCustomerOrderDetails(userId): Observable<Order> {
+  const urlprofile = this.serviceUrl + 'orderdetails/' + userId;
+  return this.httpClient.get<Order>(urlprofile);
+}
 }

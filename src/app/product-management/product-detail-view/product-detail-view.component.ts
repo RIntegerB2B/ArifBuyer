@@ -63,26 +63,16 @@ this.details = true;
     }
   }
   addToCartServer(userId, product) {
-    console.log('[product to cart', product);
     this.message = 'Product added to Cart';
- /*    this.moqQty = this.moqValue.filter(
-      data => data._id === product.moq);
-    this.moqQtyValue = this.moqQty[0].moqQuantity;
-    console.log('order qty', this.moqQty[0].moqQuantity); */
-    console.log(product.price);
     const item = {
-      productId: product.productId,
+      productId: product._id,
       productName: product.productName,
       productDescription: product.productDescription,
       productImageName: product.productImageName[0],
-      /* price: product.price,
-      subTotal: product.price * 1, */
-     /*  qty: 1, */
       set: this.setQty,
       moq: product.moq,
       price: product.price,
       ID: product.productId,
-    /*   moqQty: this.moqQtyValue */
     };
     const totalItem = [];
     totalItem.push(item);
@@ -91,6 +81,7 @@ this.details = true;
     this.cart.product = totalItem;
     this.productService.addToCart(this.cart).subscribe(data => {
       this.cartModel = data;
+      sessionStorage.setItem('cartLength', JSON.stringify(this.cartModel.length));
       this.snackBar.open(this.message, this.action, {
         duration: 3000,
       });
@@ -127,7 +118,7 @@ this.details = true;
         return ite.productId === product._id;
       });
       if (item) { // check if is not new item
-        item.set++;
+        item.set = this.setQty + item.set;
         /* item.subTotal = item.price * item.set; */
         sessionStorage.setItem('cart', JSON.stringify(cart));
         this.snackBar.open(this.message, this.action, {

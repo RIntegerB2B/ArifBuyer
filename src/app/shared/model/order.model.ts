@@ -1,6 +1,7 @@
 import { Product } from './product.model';
 
 export class Order {
+   orderId: string;
    customerId: string;
    products: [{
       productId: string,

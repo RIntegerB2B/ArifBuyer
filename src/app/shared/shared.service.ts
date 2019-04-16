@@ -31,13 +31,13 @@ export class SharedService {
   addToQty() {
     let sum = 0;
     if (JSON.parse(sessionStorage.getItem('login'))) {
-
+      return JSON.parse(sessionStorage.getItem('cartLength'));
     } else {
       const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
       cart.map(item => {
-        sum += item.set;
+        sum += item.length;
       });
-      return sum;
+      return cart.length;
     }
 
   }
@@ -46,7 +46,13 @@ export class SharedService {
   }
   sessionLogout() {
     sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('userEmailId');
     sessionStorage.setItem('login', 'false');
+    sessionStorage.removeItem('cartLength');
+
+  }
+  findName() {
+    return sessionStorage.getItem('userEmailId');
   }
 }
 

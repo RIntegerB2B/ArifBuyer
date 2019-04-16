@@ -12,17 +12,15 @@ export class NavbarComponent implements OnInit {
   header: Header[];
   logoImage: string;
   dropdownShow = false;
-  constructor(public sharedService: SharedService ,private router: Router) { }
+email;
+  constructor(public sharedService: SharedService , private router: Router) { }
 
   ngOnInit() {
     this.allHeader();
   }
-
   navBarShow()   {
     this.dropdownShow = !this.dropdownShow;
   }
-  
-
   allHeader() {
     this.sharedService.getHeaderDetails().subscribe(data => {
       this.header = data;

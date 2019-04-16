@@ -11,6 +11,8 @@ import {Order} from '../../shared/model/order.model';
 import {PublicService} from '../../shared/publicService';
 import {Inventory} from './inventory.model';
 import { from } from 'rxjs';
+import { AddressService } from './../address/address.service';
+import {RegModel} from './../../account-info/registration/registration.model';
 
 
 
@@ -39,8 +41,12 @@ export class PlaceOrderComponent implements OnInit {
   sumValue: any;
   serviceUrl;
   inventoryModel: Inventory;
+  userId: string;
+regModel: RegModel;
+addressModel: AddressModel[];
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private productService: ProductService,
-              private snackBar: MatSnackBar, private router: Router, private publicService: PublicService) { }
+              private snackBar: MatSnackBar, private router: Router, private publicService: PublicService,
+              private addressService: AddressService) { }
 
   ngOnInit() {
     this.createForm();
@@ -79,7 +85,7 @@ export class PlaceOrderComponent implements OnInit {
 getCustomerDetails() {
   this.productService.getCustomerDetails(this.userID).subscribe(data => {
     this.billingDetails = data.addressDetails;
-    if ( data.addressDetails === undefined) {
+    if ( data.addressDetails === undefined || data.addressDetails.length === 0) {
 this.addAddressDetails = true;
     } else {
       this.addAddressDetails = false;
@@ -125,7 +131,8 @@ onSubmit() {
       });
       this.removeCart();
       this.inventoryUpdate(this.inventoryModel);
-      this.router.navigate(['/home']);
+      sessionStorage.removeItem('cartLength');
+      this.router.navigate(['account/order', data.orderId]);
       }, err => {
     console.log(err);
   });
@@ -160,5 +167,27 @@ onSubmit() {
     this.totalValue = sum;
     return sum;
 
+  }
+  addAddress() {
+    this.addressService.openAddress().subscribe(
+      res => {
+        if (res)         {
+          this.getAddress();
+        }
+      }
+    );
+  }
+  getAddress() {
+    this.productService.getCustomerDetails(this.userID).subscribe(data => {
+    this.regModel = data;
+    this.billingDetails = data.addressDetails;
+    if ( data.addressDetails === undefined || data.addressDetails.length === 0) {
+      this.addAddressDetails = true;
+          } else {
+            this.addAddressDetails = false;
+          }
+    }, error => {
+      console.log(error);
+    });
   }
 }

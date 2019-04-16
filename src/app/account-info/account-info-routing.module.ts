@@ -9,6 +9,7 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 import { ListAddressComponent } from './list-address/list-address.component';
 import { ListCardComponent } from './list-card/list-card.component';
 import {OrderComponent} from './order-mananagement/order/order.component';
+import {ViewSingleOrderComponent} from './order-mananagement/view-single-order/view-single-order.component';
 const routes: Routes = [
  {path: '',
   component: AccountDetailsComponent,
@@ -21,7 +22,8 @@ children: [
 },
 { path: 'registration', component: RegistrationComponent },
 { path: 'signin', component: SigninComponent },
-{ path: 'order', component: OrderComponent }
+{ path: 'order', component: OrderComponent },
+{ path: 'order/:id', component: ViewSingleOrderComponent }
 ];
 
 @NgModule({
