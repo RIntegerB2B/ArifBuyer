@@ -64,21 +64,40 @@ this.details = true;
   }
   addToCartServer(userId, product) {
     this.message = 'Product added to Cart';
-    const item = {
-      productId: product._id,
-      productName: product.productName,
-      productDescription: product.productDescription,
-      productImageName: product.productImageName[0],
-      set: this.setQty,
-      moq: product.moq,
-      price: product.price,
-      ID: product.productId,
-    };
-    const totalItem = [];
-    totalItem.push(item);
-    this.cart = new Cart();
-    this.cart.userId = userId;
-    this.cart.product = totalItem;
+    console.log(this.setQty, 'qty');
+    if (this.setQty === undefined) {
+      const item = {
+        productId: product._id,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productImageName: product.productImageName[0],
+        set: 1,
+        moq: product.moq,
+        price: product.price,
+        ID: product.productId,
+      };
+      const totalItem = [];
+      totalItem.push(item);
+      this.cart = new Cart();
+      this.cart.userId = userId;
+      this.cart.product = totalItem;
+    } else {
+      const item = {
+        productId: product._id,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productImageName: product.productImageName[0],
+        set: this.setQty,
+        moq: product.moq,
+        price: product.price,
+        ID: product.productId,
+      };
+      const totalItem = [];
+      totalItem.push(item);
+      this.cart = new Cart();
+      this.cart.userId = userId;
+      this.cart.product = totalItem;
+    }
     this.productService.addToCart(this.cart).subscribe(data => {
       this.cartModel = data;
       sessionStorage.setItem('cartLength', JSON.stringify(this.cartModel.length));
@@ -101,10 +120,7 @@ this.details = true;
         productDescription: product.productDescription,
         productImageName: product.productImageName[0],
         price: product.price,
-       /*  price: product.price,
-        subTotal: product.price * 1, */
-   /*      qty: 1, */
-        set: this.setQty,
+        set: 1,
         moq: product.moq,
         ID: product.productId,
       };
@@ -118,9 +134,14 @@ this.details = true;
         return ite.productId === product._id;
       });
       if (item) { // check if is not new item
-        item.set = this.setQty + item.set;
+        if (this.setQty === undefined) {
+          item.set = 1;
+          sessionStorage.setItem('cart', JSON.stringify(cart));
+        } else {
+          item.set = this.setQty + item.set;
+          sessionStorage.setItem('cart', JSON.stringify(cart));
+        }
         /* item.subTotal = item.price * item.set; */
-        sessionStorage.setItem('cart', JSON.stringify(cart));
         this.snackBar.open(this.message, this.action, {
           duration: 3000,
         });
@@ -130,12 +151,10 @@ this.details = true;
           productName: product.productName,
           productDescription: product.productDescription,
           productImageName: product.productImageName[0],
-          set: this.setQty,
+          set: 1,
           moq: product.moq,
         price: product.price,
         ID: product.productId,
-         /*    subTotal: product.price * 1,
-          qty: 1 */
         };
         cart.push(items);
         sessionStorage.setItem('cart', JSON.stringify(cart));
